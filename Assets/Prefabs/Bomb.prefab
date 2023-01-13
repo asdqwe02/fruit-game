@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 502755466114576480}
   - component: {fileID: 6841112139972370405}
   - component: {fileID: 8342866869584501082}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Bomb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -67,7 +67,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!135 &8342866869584501082
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 103754400935104808}
   - component: {fileID: 3953957641752010381}
   - component: {fileID: 1241780526977722951}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -173,7 +173,7 @@ GameObject:
   - component: {fileID: 2602461871012900261}
   - component: {fileID: 7777017708141161759}
   - component: {fileID: 7342620941055668041}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Fuse Smoke Particle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4977,7 +4977,7 @@ GameObject:
   - component: {fileID: 3539028151425218845}
   - component: {fileID: 579425805664346983}
   - component: {fileID: 1202103486544281497}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5058,7 +5058,7 @@ GameObject:
   - component: {fileID: 7561285820919583208}
   - component: {fileID: 3241798943982930918}
   - component: {fileID: 2955115198567447044}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5139,7 +5139,7 @@ GameObject:
   - component: {fileID: 5845570350008027693}
   - component: {fileID: 5842004638396596943}
   - component: {fileID: 8727078040542511163}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Explode Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5296,7 +5296,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 100
+      scalar: 115
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -9944,7 +9944,7 @@ GameObject:
   - component: {fileID: 1045406623570716516}
   - component: {fileID: 1240048868439218323}
   - component: {fileID: 3439880925759107676}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Fuse Spark Particle
   m_TagString: Untagged
   m_Icon: {fileID: 0}

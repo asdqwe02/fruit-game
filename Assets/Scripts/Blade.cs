@@ -39,7 +39,7 @@ public class Blade : MonoBehaviour
     {
         mainCamera = Camera.main;
         _rigidbody = GetComponent<Rigidbody>();
-        sliceCollider = GetComponent<Collider>();
+        // sliceCollider = GetComponent<Collider>();
         sliceTrail = GetComponentInChildren<TrailRenderer>();
         detectionCountDown = playerDetctionThreshold;
     }
@@ -112,14 +112,25 @@ public class Blade : MonoBehaviour
         // }
     }
 
-    private void LateUpdate()
+    private void FixedUpdate()
     {
         RaycastHit[] raycastHit = Physics.SphereCastAll(transform.position, 2f, transform.forward, .2f, _hitLayerMask);
+        foreach (var hit in raycastHit)
+        {
+            var collider = hit.collider;
+            var fruit = collider.GetComponent<Fruit>();
+            if (fruit != null)
+            {
+                fruit.Slice(direction, transform.position, sliceForce);
+            }
+        }
         // Physics.SphereCast(transform.position, 2f,out raycastHit);
     }
 
     private void OnDrawGizmos()
     {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, 2f);
     }
 
     private void StartSlice()
@@ -135,7 +146,7 @@ public class Blade : MonoBehaviour
         // transform.position = screenPixelPos;
         transform.position = _startPos;
         slicing = true;
-        sliceCollider.enabled = true;
+        // sliceCollider.enabled = true;
         sliceTrail.enabled = true;
         sliceTrail.Clear();
     }
@@ -143,7 +154,7 @@ public class Blade : MonoBehaviour
     private void StopSlice()
     {
         slicing = false;
-        sliceCollider.enabled = false;
+        // sliceCollider.enabled = false;
         sliceTrail.enabled = false;
     }
 
@@ -152,10 +163,9 @@ public class Blade : MonoBehaviour
         // Vector3 newPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         // newPosition.z = 0f;
         Vector3 newPosition = _bladePos;
-
         direction = newPosition - transform.position;
         float velocity = direction.magnitude / Time.deltaTime;
-        sliceCollider.enabled = velocity > minSliceVelocity;
+        // sliceCollider.enabled = velocity > minSliceVelocity;
         // _rigidbody.position = newPosition;
         _rigidbody.MovePosition(newPosition);
         // transform.position = newPosition;

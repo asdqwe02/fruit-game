@@ -23,7 +23,7 @@ public class Fruit : MonoBehaviour
             juiceEffect = GetComponentInChildren<ParticleSystem>();
     }
 
-    private void Slice(Vector3 direction, Vector3 position, float force)
+    public void Slice(Vector3 direction, Vector3 position, float force)
     {
         if (SliceToStart)
         {

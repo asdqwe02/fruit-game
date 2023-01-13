@@ -1191,7 +1191,6 @@ GameObject:
   m_Component:
   - component: {fileID: 835024513}
   - component: {fileID: 835024514}
-  - component: {fileID: 835024515}
   - component: {fileID: 835024516}
   m_Layer: 0
   m_Name: Right Hand Blade
@@ -1237,19 +1236,9 @@ MonoBehaviour:
   IsRightHand: 1
   playerDetctionThreshold: 5
   _inactve: 0
---- !u!135 &835024515
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 835024512}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 2
-  m_Center: {x: 0, y: 0, z: 0}
+  _hitLayerMask:
+    serializedVersion: 2
+    m_Bits: 192
 --- !u!54 &835024516
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1265,7 +1254,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
 --- !u!1 &860532807
 GameObject:
   m_ObjectHideFlags: 0
@@ -1301,7 +1290,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 32, y: -10}
+  m_AnchoredPosition: {x: 50, y: -50}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &860532809
@@ -1371,7 +1360,6 @@ GameObject:
   m_Component:
   - component: {fileID: 928373368}
   - component: {fileID: 928373367}
-  - component: {fileID: 928373366}
   - component: {fileID: 928373369}
   m_Layer: 0
   m_Name: Left hand Blade
@@ -1380,19 +1368,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!135 &928373366
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 928373365}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 2
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &928373367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1415,6 +1390,9 @@ MonoBehaviour:
   IsRightHand: 0
   playerDetctionThreshold: 5
   _inactve: 0
+  _hitLayerMask:
+    serializedVersion: 2
+    m_Bits: 192
 --- !u!4 &928373368
 Transform:
   m_ObjectHideFlags: 0
@@ -1445,7 +1423,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -2287,7 +2265,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -50, y: 0}
+  m_AnchoredPosition: {x: -50, y: -50}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1812119445
