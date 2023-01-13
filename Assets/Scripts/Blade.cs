@@ -34,7 +34,7 @@ public class Blade : MonoBehaviour
     private float detectionCountDown;
     [SerializeField] private bool _inactve;
     [SerializeField] private LayerMask _hitLayerMask;
-
+    public Int64 userID;
     private void Awake()
     {
         mainCamera = Camera.main;
@@ -51,9 +51,17 @@ public class Blade : MonoBehaviour
         interactionManager = GetInteractionManager();
         _boundary = GameManager.Instance.GetBoundary();
         _startPos = GameManager.Instance.GetBladeStartPosition();
+        interactionManager.UserIdChange.AddListener(OnUserIdChange);
         StartSlice();
     }
 
+    private void OnUserIdChange(Int64 userId,bool remove)
+    {
+        if (remove && this.userID == userId)
+        {
+            userID = -1;
+        }
+    }
     private void OnEnable()
     {
         StopSlice();
