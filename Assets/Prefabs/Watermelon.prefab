@@ -651,6 +651,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Watermelon
       objectReference: {fileID: 0}
+    - target: {fileID: 8457310349337905135, guid: 25504251438a6c1458bc142c3170ac68, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 8503097747900874359, guid: 25504251438a6c1458bc142c3170ac68, type: 3}
       propertyPath: m_IsActive
       value: 1

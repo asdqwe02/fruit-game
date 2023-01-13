@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 2529313528809317843}
   - component: {fileID: 2529313528809317842}
   - component: {fileID: 2529313528809317841}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PineApple
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   whole: {fileID: 2529313528751341518}
   sliced: {fileID: 2529313528385803405}
-  juiceEffect: {fileID: 9107683514951020812, guid: c761b92d043ef8f419159793fc9166a5, type: 3}
+  juiceEffect: {fileID: 7034475022001597901}
   fruitColor: {r: 0.97178507, g: 1, b: 0.3443396, a: 0.5882353}
   splashPrefabs: {fileID: 8451324496245337121, guid: 52c0066e273fa0e44ae40f60b02d1fc4, type: 3}
   points: 1
@@ -153,9 +153,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2529313528809317845}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 1.35
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -250,6 +250,11 @@ PrefabInstance:
 --- !u!4 &7034475022001597890 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9107683514951020803, guid: c761b92d043ef8f419159793fc9166a5, type: 3}
+  m_PrefabInstance: {fileID: 2304580932412464321}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &7034475022001597901 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 9107683514951020812, guid: c761b92d043ef8f419159793fc9166a5, type: 3}
   m_PrefabInstance: {fileID: 2304580932412464321}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2529313527768639637
