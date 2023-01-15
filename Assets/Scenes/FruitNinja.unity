@@ -311,7 +311,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _userId: 0
   _blades: []
-  otherPlayer: {fileID: 979363111}
 --- !u!1 &234022899
 GameObject:
   m_ObjectHideFlags: 0
@@ -1207,21 +1206,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 692066512}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29735fcf935e5f94a9473917f381f6b2, type: 3}
+  m_Script: {fileID: 11500000, guid: a2e2378913165074b950e5c80d7c8e74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggableObjects: []
-  selectedObjectMaterial: {fileID: 0}
-  dragSpeed: 3
-  minZ: 0
-  maxZ: 5
-  useGravity: 1
-  resetObjects: 0
-  screenCamera: {fileID: 963194227}
-  infoGuiText: {fileID: 0}
-  playerIndex: 0
   leftHandInteraction: 1
   rightHandInteraction: 1
+  UserIdUpdate:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1839,7 +1831,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _userId: 0
   _blades: []
-  otherPlayer: {fileID: 200271836}
 --- !u!4 &979363112
 Transform:
   m_ObjectHideFlags: 0
