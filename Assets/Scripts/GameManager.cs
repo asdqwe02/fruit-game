@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Resources;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Windows;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class GameManager : MonoBehaviour
     public Image fadeImage;
 
     [SerializeField] private List<Blade> _blades;
+    [SerializeField] private List<Player> _players;
     [SerializeField] Spawner spawner;
     [SerializeField] private float _countDownTime;
     private int score;
@@ -26,6 +28,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject _startFruit;
     public int StartFruitCount = 0;
     private int _inactiveBlades = 0;
+    [SerializeField] private string configFileName;
+    private string kinectManagerConfig;
 
     public int InactiveBlades
     {
@@ -60,6 +64,8 @@ public class GameManager : MonoBehaviour
     {
         // NewGame();
         // Debug.Log(GetBladeStartPosition());
+        InteractionManager.Instance.UserIdUpdate.AddListener(OnUserIDUpdate);
+        // kinectManagerConfig = System.IO.File.ReadAllText(Application.streamingAssetsPath + configFileName);
     }
 
     private void NewGame()
@@ -69,10 +75,15 @@ public class GameManager : MonoBehaviour
         _instructionScreen.SetActive(false);
         ClearScene();
 
-        foreach (var blade in _blades)
+
+        foreach (var player in _players)
         {
-            blade.enabled = true;
+            player.EnableBlades();
         }
+        // foreach (var blade in _blades)
+        // {
+        //     blade.enabled = true;
+        // }
 
         spawner.enabled = true;
         Playing = true;
@@ -109,10 +120,15 @@ public class GameManager : MonoBehaviour
 
     public void Explode(Transform bomb = null)
     {
-        foreach (var blade in _blades)
+        foreach (var player in _players)
         {
-            blade.enabled = true;
+            player.EnableBlades();
         }
+
+        // foreach (var blade in _blades)
+        // {
+        //     blade.enabled = true;
+        // }
         spawner.enabled = false;
 
         StartCoroutine(ExplodeSequence(bomb));
@@ -249,9 +265,28 @@ public class GameManager : MonoBehaviour
 
     private void OnInactiveBlade()
     {
-        if (_inactiveBlades >= 2)
+        if (_inactiveBlades >= _players.Count * 2)
         {
             EndGame();
+        }
+    }
+
+    void OnUserIDUpdate(Int64 userID, bool remove)
+    {
+        foreach (var player in _players)
+        {
+            if (remove && player.UserID == userID)
+            {
+                player.UserID = -1; // I don't know if kinect can even have userID = -1
+            }
+            else
+            {
+                if (player.UserID == -1)
+                {
+                    player.UserID = userID;
+                    return;
+                }
+            }
         }
     }
 }

@@ -5139,6 +5139,7 @@ GameObject:
   - component: {fileID: 5845570350008027693}
   - component: {fileID: 5842004638396596943}
   - component: {fileID: 8727078040542511163}
+  - component: {fileID: 6627155304851865956}
   m_Layer: 7
   m_Name: Explode Trail
   m_TagString: Untagged
@@ -9933,6 +9934,21 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &6627155304851865956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5034399450516199349}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc66af8dda3b311449881339b4ecd14a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _lockXRotation: 1
+  _lockYRotation: 1
+  _lockZRotation: 1
 --- !u!1 &6788515866254890600
 GameObject:
   m_ObjectHideFlags: 0

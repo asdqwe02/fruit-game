@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System;
 using System.IO;
+using System.Linq;
 using UnityEngine.Events;
 
 
@@ -253,7 +254,13 @@ public class InteractionManager : MonoBehaviour
 
     public Vector3 GetLeftHandScreenPos(Int64 userID)
     {
-        return leftHandScreenPosDict[userID];
+        // Vector3 leftHandScreenPosition;
+        if (leftHandScreenPosDict.TryGetValue(userID, out Vector3 leftHandScreenPosition))
+        {
+            return leftHandScreenPosition;
+        }
+
+        return Vector3.zero;
     }
 
     /// <summary>
@@ -331,9 +338,15 @@ public class InteractionManager : MonoBehaviour
         return rightHandScreenPos;
     }
 
-    public Vector3 GetRightHandScreenPos(Int64 userId)
+    public Vector3 GetRightHandScreenPos(Int64 userID)
     {
-        return rightHandScreenPosDict[userId];
+        // Vector3 rightHandScreenPosition;
+        if (rightHandScreenPosDict.TryGetValue(userID, out Vector3 rightHandScreenPosition))
+        {
+            return rightHandScreenPosition;
+        }
+
+        return Vector3.zero;
     }
 
     /// <summary>
@@ -402,7 +415,7 @@ public class InteractionManager : MonoBehaviour
         return cursorClickProgress;
     }
 
-    public UnityEvent<Int64, bool> UserIdChange;
+    public UnityEvent<Int64, bool> UserIdUpdate;
     //----------------------------------- end of public functions --------------------------------------//
 
     void Awake()
@@ -447,6 +460,8 @@ public class InteractionManager : MonoBehaviour
         KinectManager kinectManager = KinectManager.Instance;
 
         // update Kinect interaction
+
+
         if (kinectManager && kinectManager.IsInitialized())
         {
             # region Two-Person-HandPos
@@ -456,68 +471,71 @@ public class InteractionManager : MonoBehaviour
             {
                 foreach (var id in playerUserIDList)
                 {
-                    if (!leftHandPosDict.ContainsKey(id))
+                    if (!leftHandPosDict.ContainsKey(id) || !rightHandPosDict.ContainsKey(id))
                     {
+                        // left hand
                         leftHandPosDict.Add(id, Vector3.zero);
                         leftIboxLeftBotBackDict.Add(id, Vector3.zero);
                         leftIboxRightTopFrontDict.Add(id, Vector3.zero);
-                        UserIdChange?.Invoke(id, false);
-                    }
+                        // UserIdUpdate?.Invoke(id, false);
 
-                    if (!rightHandPosDict.ContainsKey(id))
-                    {
+                        // right right hand
                         rightHandPosDict.Add(id, Vector3.zero);
                         rightIboxLeftBotBackDict.Add(id, Vector3.zero);
                         rightIboxRightTopFrontDict.Add(id, Vector3.zero);
-                        UserIdChange?.Invoke(id, false);
+                        UserIdUpdate?.Invoke(id, false);
                     }
                 }
 
-                Debug.Log(leftHandPosDict.Count);
+                // Debug.Log(leftHandPosDict.Count);
                 List<Int64> removeId = new List<Int64>();
-                foreach (KeyValuePair<Int64, Vector3> leftHandPos in leftHandPosDict)
+                foreach (var key in leftHandPosDict.Keys.ToList())
                 {
-                    if (playerUserIDList.Contains(leftHandPos.Key))
+                    if (playerUserIDList.Contains(key))
                     {
-                        Int64 key = leftHandPos.Key;
+                        // Int64 key = key.Key;
+                        // update left hand position dictionary by key
                         Vector3 leftHandJoinPos = kinectManager.GetJointPosition(key, (int)KinectInterop.JointType.HandLeft);
                         leftHandPosDict[key] = leftHandJoinPos;
+
                         Vector3 leftIboxLeftBotBackTemp = leftIboxLeftBotBackDict[key];
                         Vector3 leftIboxRightTopFrontTemp = leftIboxRightTopFrontDict[key];
                         isleftIboxValid = kinectManager.GetLeftHandInteractionBox(
                             key,
                             ref leftIboxLeftBotBackTemp,
-                            ref leftIboxRightTopFrontTemp, isleftIboxValid
+                            ref leftIboxRightTopFrontTemp,
+                            isleftIboxValid
                         );
-                        // leftIboxLeftBotBackDict[key] = leftIboxLeftBotBackTemp;
-                        // leftIboxRightTopFrontDict[key] = leftIboxRightTopFrontTemp;
-                        // leftHandScreenPosDict[key] =
-                        //     new Vector3(
-                        //         Mathf.Clamp01((leftHandPosDict[key].x - leftIboxLeftBotBack.x) /
-                        //                       (leftIboxRightTopFrontDict[key].x - leftIboxLeftBotBackDict[key].x)),
-                        //         Mathf.Clamp01((leftIboxLeftBotBack.z - leftHandPosDict[key].z) /
-                        //                       (leftIboxLeftBotBackDict[key].z - leftIboxLeftBotBackDict[key].z)),
-                        //         Mathf.Clamp01((leftHandPosDict[key].y - leftIboxLeftBotBackDict[key].y) /
-                        //                       (leftIboxRightTopFrontDict[key].y - leftIboxLeftBotBackDict[key].y))
-                        //     );
+                        leftIboxLeftBotBackDict[key] = leftIboxLeftBotBackTemp;
+                        leftIboxRightTopFrontDict[key] = leftIboxRightTopFrontTemp;
+
+                        // update left hand screen position dictionary by key
+                        leftHandScreenPosDict[key] =
+                            new Vector3(
+                                Mathf.Clamp01((leftHandPosDict[key].x - leftIboxLeftBotBack.x) /
+                                              (leftIboxRightTopFrontDict[key].x - leftIboxLeftBotBackDict[key].x)),
+                                Mathf.Clamp01((leftHandPosDict[key].y - leftIboxLeftBotBackDict[key].y) /
+                                              (leftIboxRightTopFrontDict[key].y - leftIboxLeftBotBackDict[key].y)),
+                                Mathf.Clamp01((leftIboxLeftBotBack.z - leftHandPosDict[key].z) /
+                                              (leftIboxLeftBotBackDict[key].z - leftIboxLeftBotBackDict[key].z))
+                            );
                     }
                     else
                     {
-                        if (!removeId.Contains(leftHandPos.Key))
+                        if (!removeId.Contains(key))
                         {
-                            removeId.Add(leftHandPos.Key);
+                            removeId.Add(key);
                         }
-
-
+                        
                         // UserIdChange?.Invoke(leftHandPos.Key, true);
                     }
                 }
 
-                foreach (var rightHandPos in rightHandPosDict.Keys)
+                foreach (var key in rightHandPosDict.Keys.ToList())
                 {
-                    if (playerUserIDList.Contains(rightHandPos))
+                    if (playerUserIDList.Contains(key))
                     {
-                        Int64 key = rightHandPos;
+                        // Int64 key = key;
                         Vector3 rightHandJoinPos = kinectManager.GetJointPosition(key, (int)KinectInterop.JointType.HandRight);
                         rightHandPosDict[key] = rightHandJoinPos;
                         Vector3 rightIboxLeftBotBackTemp = rightIboxLeftBotBackDict[key];
@@ -533,17 +551,17 @@ public class InteractionManager : MonoBehaviour
                             new Vector3(
                                 Mathf.Clamp01((rightHandPosDict[key].x - rightIboxLeftBotBack.x) /
                                               (rightIboxRightTopFrontDict[key].x - rightIboxLeftBotBackDict[key].x)),
-                                Mathf.Clamp01((rightIboxLeftBotBack.z - rightHandPosDict[key].z) /
-                                              (rightIboxLeftBotBackDict[key].z - rightIboxLeftBotBackDict[key].z)),
                                 Mathf.Clamp01((rightHandPosDict[key].y - rightIboxLeftBotBackDict[key].y) /
-                                              (rightIboxRightTopFrontDict[key].y - rightIboxLeftBotBackDict[key].y))
+                                              (rightIboxRightTopFrontDict[key].y - rightIboxLeftBotBackDict[key].y)),
+                                Mathf.Clamp01((rightIboxLeftBotBack.z - rightHandPosDict[key].z) /
+                                              (rightIboxLeftBotBackDict[key].z - rightIboxLeftBotBackDict[key].z))
                             );
                     }
                     else
                     {
-                        if (!removeId.Contains(rightHandPos))
+                        if (!removeId.Contains(key))
                         {
-                            removeId.Add(rightHandPos);
+                            removeId.Add(key);
                         }
                     }
                 }
@@ -556,7 +574,7 @@ public class InteractionManager : MonoBehaviour
                     leftHandPosDict.Remove(id);
                     rightIboxRightTopFrontDict.Remove(id);
                     leftIboxLeftBotBackDict.Remove(id);
-                    UserIdChange?.Invoke(id, true);
+                    UserIdUpdate?.Invoke(id, true);
                 }
             }
 

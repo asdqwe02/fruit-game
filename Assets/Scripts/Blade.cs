@@ -35,6 +35,7 @@ public class Blade : MonoBehaviour
     [SerializeField] private bool _inactve;
     [SerializeField] private LayerMask _hitLayerMask;
     public Int64 userID;
+
     private void Awake()
     {
         mainCamera = Camera.main;
@@ -51,17 +52,9 @@ public class Blade : MonoBehaviour
         interactionManager = GetInteractionManager();
         _boundary = GameManager.Instance.GetBoundary();
         _startPos = GameManager.Instance.GetBladeStartPosition();
-        interactionManager.UserIdChange.AddListener(OnUserIdChange);
         StartSlice();
     }
 
-    private void OnUserIdChange(Int64 userId,bool remove)
-    {
-        if (remove && this.userID == userId)
-        {
-            userID = -1;
-        }
-    }
     private void OnEnable()
     {
         StopSlice();
@@ -76,10 +69,10 @@ public class Blade : MonoBehaviour
     {
         // screenNormalPos = interactionManager.IsLeftHandPrimary() ? interactionManager.GetLeftHandScreenPos() : interactionManager.GetRightHandScreenPos();
         if (IsRightHand)
-            screenNormalPos = interactionManager.GetRightHandScreenPos();
+            screenNormalPos = interactionManager.GetRightHandScreenPos(userID);
         else
         {
-            screenNormalPos = interactionManager.GetLeftHandScreenPos();
+            screenNormalPos = interactionManager.GetLeftHandScreenPos(userID);
         }
 
         // screenPixelPos.x = (int)(screenNormalPos.x * (screenCamera ? screenCamera.pixelWidth : Screen.width));
@@ -122,17 +115,23 @@ public class Blade : MonoBehaviour
 
     private void FixedUpdate()
     {
-        RaycastHit[] raycastHit = Physics.SphereCastAll(transform.position, 2f, transform.forward, .2f, _hitLayerMask);
-        foreach (var hit in raycastHit)
+        if (slicing)
         {
-            var collider = hit.collider;
-            var fruit = collider.GetComponent<Fruit>();
-            if (fruit != null)
+            RaycastHit[] raycastHit = Physics.SphereCastAll(transform.position, 2f, transform.forward, .2f, _hitLayerMask);
+            foreach (var hit in raycastHit)
             {
-                fruit.Slice(direction, transform.position, sliceForce);
+                var collider = hit.collider;
+                var fruit = collider.GetComponent<Fruit>();
+                if (fruit != null)
+                {
+                    fruit.Slice(direction, transform.position, sliceForce);
+                }
+                else
+                {
+                    collider.GetComponent<Bomb>().Explode();
+                }
             }
         }
-        // Physics.SphereCast(transform.position, 2f,out raycastHit);
     }
 
     private void OnDrawGizmos()
@@ -173,6 +172,7 @@ public class Blade : MonoBehaviour
         Vector3 newPosition = _bladePos;
         direction = newPosition - transform.position;
         float velocity = direction.magnitude / Time.deltaTime;
+        slicing = velocity > minSliceVelocity;
         // sliceCollider.enabled = velocity > minSliceVelocity;
         // _rigidbody.position = newPosition;
         _rigidbody.MovePosition(newPosition);
