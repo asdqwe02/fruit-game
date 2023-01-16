@@ -1,0 +1,10 @@
+{
+  "maxUserDistance": 1.5,
+  "minUserDistance": 0.25,
+  "maxSideDistance": 0,
+  "sensorHeight": 1,
+  "displayerUserMap": true,
+  "displayerColorMap": false,
+  "displayMapWidthPercent": 40.0,
+  "enableDebugText": true
+}

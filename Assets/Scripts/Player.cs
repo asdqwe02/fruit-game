@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private Int64 _userId;
+    [SerializeField] private Int64 _userId = -1;
 
     public Int64 UserID
     {

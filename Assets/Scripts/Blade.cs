@@ -69,10 +69,15 @@ public class Blade : MonoBehaviour
     {
         // screenNormalPos = interactionManager.IsLeftHandPrimary() ? interactionManager.GetLeftHandScreenPos() : interactionManager.GetRightHandScreenPos();
         if (IsRightHand)
-            screenNormalPos = interactionManager.GetRightHandScreenPos(userID);
+        {
+            // screenNormalPos = interactionManager.GetRightHandScreenPos(userID);
+            screenNormalPos = KinectHandPositionManager.Instance.GetRightHandScreenPos(userID);
+        }
+
         else
         {
-            screenNormalPos = interactionManager.GetLeftHandScreenPos(userID);
+            // screenNormalPos = interactionManager.GetLeftHandScreenPos(userID);
+            screenNormalPos = KinectHandPositionManager.Instance.GetLeftHandScreenPos(userID);
         }
 
         // screenPixelPos.x = (int)(screenNormalPos.x * (screenCamera ? screenCamera.pixelWidth : Screen.width));
@@ -115,6 +120,7 @@ public class Blade : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // ContinueSlice();
         if (slicing)
         {
             RaycastHit[] raycastHit = Physics.SphereCastAll(transform.position, 2f, transform.forward, .2f, _hitLayerMask);
@@ -146,7 +152,7 @@ public class Blade : MonoBehaviour
         // position.z = 0f;
         // transform.position = position;
 
-        screenNormalPos = interactionManager.GetRightHandScreenPos();
+        // screenNormalPos = interactionManager.GetRightHandScreenPos(userID);
         // screenPixelPos.x = (int)(screenNormalPos.x * (screenCamera ? screenCamera.pixelWidth : Screen.width));
         // screenPixelPos.y = (int)(screenNormalPos.y * (screenCamera ? screenCamera.pixelHeight : Screen.height));
         // screenPixelPos.z = 0;

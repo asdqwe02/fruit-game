@@ -231,7 +231,7 @@ Transform:
   - {fileID: 334775396}
   - {fileID: 134648514}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &134648513
 GameObject:
@@ -309,7 +309,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6272ecb80647ee40942b51b1a0b6477, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _userId: 0
+  _userId: -1
   _blades: []
 --- !u!1 &234022899
 GameObject:
@@ -527,7 +527,7 @@ TrailRenderer:
     colorGradient:
       serializedVersion: 2
       key0: {r: 1, g: 0, b: 0, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
+      key1: {r: 0.7963095, g: 0, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -1165,7 +1165,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &692066515
 MonoBehaviour:
@@ -1174,7 +1174,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 692066512}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a669d15f0035bbf4889c8092b5bcd201, type: 3}
   m_Name: 
@@ -1194,6 +1194,7 @@ MonoBehaviour:
   controlMouseDrag: 0
   interactionListeners: []
   debugText: {fileID: 1098128883}
+  playerUserIDList: 
   UserIdUpdate:
     m_PersistentCalls:
       m_Calls: []
@@ -1209,6 +1210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2e2378913165074b950e5c80d7c8e74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerUserIDList: 
   leftHandInteraction: 1
   rightHandInteraction: 1
   UserIdUpdate:
@@ -1442,7 +1444,7 @@ MonoBehaviour:
   _hitLayerMask:
     serializedVersion: 2
     m_Bits: 192
-  userID: 0
+  userID: -1
 --- !u!54 &835024516
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1597,7 +1599,7 @@ MonoBehaviour:
   _hitLayerMask:
     serializedVersion: 2
     m_Bits: 192
-  userID: 0
+  userID: -1
 --- !u!4 &928373368
 Transform:
   m_ObjectHideFlags: 0
@@ -1683,7 +1685,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 16.67
+  orthographic size: 25
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1799,7 +1801,7 @@ MonoBehaviour:
   _hitLayerMask:
     serializedVersion: 2
     m_Bits: 192
-  userID: 0
+  userID: -1
 --- !u!1 &979363110
 GameObject:
   m_ObjectHideFlags: 0
@@ -1829,7 +1831,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6272ecb80647ee40942b51b1a0b6477, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _userId: 0
+  _userId: -1
   _blades: []
 --- !u!4 &979363112
 Transform:
@@ -1950,7 +1952,7 @@ TrailRenderer:
     colorGradient:
       serializedVersion: 2
       key0: {r: 1, g: 0, b: 0, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
+      key1: {r: 0.7963095, g: 0, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -2513,7 +2515,7 @@ MonoBehaviour:
   Playing: 0
   _startFruit: {fileID: 130782219}
   StartFruitCount: 0
-  configFileName: 
+  configFileName: config.json
 --- !u!1 &1716576168
 GameObject:
   m_ObjectHideFlags: 0
@@ -2588,7 +2590,7 @@ MonoBehaviour:
   _hitLayerMask:
     serializedVersion: 2
     m_Bits: 192
-  userID: 0
+  userID: -1
 --- !u!1 &1744158370
 GameObject:
   m_ObjectHideFlags: 0
@@ -2850,7 +2852,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1865947123}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -25, z: 0}
+  m_LocalPosition: {x: 0, y: -27.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

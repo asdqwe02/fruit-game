@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using System.Resources;
 using UnityEngine;
 using UnityEngine.UI;
@@ -63,9 +64,27 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         // NewGame();
-        // Debug.Log(GetBladeStartPosition());
-        InteractionManager.Instance.UserIdUpdate.AddListener(OnUserIDUpdate);
-        // kinectManagerConfig = System.IO.File.ReadAllText(Application.streamingAssetsPath + configFileName);
+        // Debug.Log(GetBluseradeStartPosition());
+        // InteractionManager.Instance.UserIdUpdate.AddListener(OnUserIDUpdate);
+        KinectHandPositionManager.Instance.UserIdUpdate.AddListener(OnUserIDUpdate);
+        string configFilePath = Application.streamingAssetsPath + "/" + configFileName;
+        ReadConfigFile(configFilePath);
+    }
+
+    public void ReadConfigFile(string path)
+    {
+        if (System.IO.File.Exists(path))
+        {
+            kinectManagerConfig = System.IO.File.ReadAllText(path);
+            KinectManagerConfig configSetting = JsonUtility.FromJson<KinectManagerConfig>(kinectManagerConfig);
+            KinectManager.Instance.maxUserDistance = configSetting.maxUserDistance;
+            KinectManager.Instance.minUserDistance = configSetting.minUserDistance;
+            KinectManager.Instance.maxLeftRightDistance = configSetting.maxSideDistance;
+            KinectManager.Instance.sensorHeight = configSetting.sensorHeight;
+            KinectManager.Instance.displayColorMap = configSetting.displayerColorMap;
+            KinectManager.Instance.DisplayMapsWidthPercent = configSetting.displayMapWidthPercent;
+            KinectManager.Instance.calibrationText.gameObject.SetActive(configSetting.enableDebugText);
+        }
     }
 
     private void NewGame()

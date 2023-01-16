@@ -9,11 +9,11 @@ using System.IO;
 using System.Linq;
 using UnityEngine.Events;
 
-public class KinectHandPosition : MonoBehaviour
+public class KinectHandPositionManager : MonoBehaviour
 {
     private KinectManager kinectManager;
-    private List<long> playerUserIDList = new List<long>();
-    public static KinectHandPosition Instance;
+    [SerializeField] private List<long> playerUserIDList = new List<long>();
+    public static KinectHandPositionManager Instance;
 
     public bool leftHandInteraction = true;
     public bool rightHandInteraction = true;
@@ -38,6 +38,19 @@ public class KinectHandPosition : MonoBehaviour
     // Events
     public UnityEvent<Int64, bool> UserIdUpdate;
 
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+    }
+
     void Start()
     {
         kinectManager = KinectManager.Instance;
@@ -46,6 +59,7 @@ public class KinectHandPosition : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // KinectManager kinectManager = KinectManager.Instance;
         if (kinectManager && kinectManager.IsInitialized())
         {
             # region Two-Person-HandPos
@@ -173,5 +187,27 @@ public class KinectHandPosition : MonoBehaviour
 
             # endregion
         }
+    }
+
+    public Vector3 GetRightHandScreenPos(Int64 userID)
+    {
+        // Vector3 rightHandScreenPosition;
+        if (rightHandScreenPosDict.TryGetValue(userID, out Vector3 rightHandScreenPosition))
+        {
+            return rightHandScreenPosition;
+        }
+
+        return Vector3.zero;
+    }
+
+    public Vector3 GetLeftHandScreenPos(Int64 userID)
+    {
+        // Vector3 leftHandScreenPosition;
+        if (leftHandScreenPosDict.TryGetValue(userID, out Vector3 leftHandScreenPosition))
+        {
+            return leftHandScreenPosition;
+        }
+
+        return Vector3.zero;
     }
 }
