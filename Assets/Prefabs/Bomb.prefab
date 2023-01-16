@@ -67,7 +67,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
 --- !u!135 &8342866869584501082
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -9946,9 +9946,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc66af8dda3b311449881339b4ecd14a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _lockXRotation: 1
-  _lockYRotation: 1
-  _lockZRotation: 1
 --- !u!1 &6788515866254890600
 GameObject:
   m_ObjectHideFlags: 0

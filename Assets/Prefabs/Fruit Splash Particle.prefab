@@ -181,7 +181,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.5
+      scalar: 0.4
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -672,7 +672,7 @@ ParticleSystem:
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.45
+      scalar: 0
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -813,7 +813,7 @@ ParticleSystem:
     randomPositionAmount: 0
     radius:
       value: 4
-      mode: 3
+      mode: 0
       spread: 0
       speed:
         serializedVersion: 2
@@ -1041,7 +1041,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 30
+        scalar: 20
         minScalar: 30
         maxCurve:
           serializedVersion: 2
@@ -5043,7 +5043,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.5
+      scalar: 0.4
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -5534,7 +5534,7 @@ ParticleSystem:
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.45
+      scalar: 0
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -5675,7 +5675,7 @@ ParticleSystem:
     randomPositionAmount: 0
     radius:
       value: 4
-      mode: 3
+      mode: 0
       spread: 0
       speed:
         serializedVersion: 2
@@ -5903,7 +5903,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 10
+        scalar: 5
         minScalar: 30
         maxCurve:
           serializedVersion: 2

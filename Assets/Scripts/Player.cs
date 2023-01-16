@@ -35,8 +35,7 @@ public class Player : MonoBehaviour
 
     void OnUserIDUpdate()
     {
-        if (_userId != -1)
-            UpdateBladeUserID(_userId);
+        UpdateBladeUserID(_userId);
     }
 
     public void DisableBlades()

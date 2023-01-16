@@ -150,7 +150,7 @@ public class AudioManager : MonoBehaviour
     void Start()
     {
         // can play main theme or music here
-        // Play("Theme");
+        PlaySoundTrack(SoundTrack.ST01);
     }
 
     // Get spacial sound object
@@ -188,7 +188,7 @@ public class AudioManager : MonoBehaviour
     }
 
     // play spacial Sound 
-    public void PlaySound(Sound sound, Vector3 position)
+    public AudioSource PlaySound(Sound sound, Vector3 position, float disableTime = 0f)
     {
         if (CanPlaySound(sound))
         {
@@ -217,7 +217,10 @@ public class AudioManager : MonoBehaviour
             audioSource.Play();
             if (!audioSource.loop)
                 StartCoroutine(DisableSoundObject(soundGameObject, audioSource.clip.length));
+            return audioSource;
         }
+
+        return null;
     }
 
     public GameObject PlaySound(Sound sound)
