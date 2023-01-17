@@ -30,6 +30,7 @@ public class Blade : MonoBehaviour
     private Vector3 _startPos;
     private bool slicing;
     public bool IsRightHand;
+    public bool IsPlayerTwo;
     public float playerDetctionThreshold = 2f;
     private float detectionCountDown;
     [SerializeField] private bool _inactve;
@@ -73,11 +74,19 @@ public class Blade : MonoBehaviour
             // screenNormalPos = interactionManager.GetRightHandScreenPos(userID);
             screenNormalPos = KinectHandPositionManager.Instance.GetRightHandScreenPos(userID);
         }
-
         else
         {
             // screenNormalPos = interactionManager.GetLeftHandScreenPos(userID);
             screenNormalPos = KinectHandPositionManager.Instance.GetLeftHandScreenPos(userID);
+        }
+
+        if (IsPlayerTwo)
+        {
+            screenNormalPos = new Vector3(screenNormalPos.x / 2 + 0.5f, screenNormalPos.y, screenNormalPos.z);            
+        }
+        else
+        {
+            screenNormalPos = new Vector3(screenNormalPos.x / 2, screenNormalPos.y, screenNormalPos.z);
         }
 
         // screenPixelPos.x = (int)(screenNormalPos.x * (screenCamera ? screenCamera.pixelWidth : Screen.width));
