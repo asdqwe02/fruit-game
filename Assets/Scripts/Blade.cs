@@ -18,7 +18,6 @@ public class Blade : MonoBehaviour
     // Kinect Field
     // normalized and pixel position of the cursor
     private Vector3 screenNormalPos = Vector3.zero;
-    private Vector3 screenPixelPos = Vector3.zero;
     private InteractionManager interactionManager;
     private KinectManager _kinectManager;
     public Camera screenCamera;
@@ -36,6 +35,7 @@ public class Blade : MonoBehaviour
     [SerializeField] private bool _inactve;
     [SerializeField] private LayerMask _hitLayerMask;
     public Int64 userID;
+    private Player _player;
 
     private void Awake()
     {
@@ -44,6 +44,7 @@ public class Blade : MonoBehaviour
         // sliceCollider = GetComponent<Collider>();
         sliceTrail = GetComponentInChildren<TrailRenderer>();
         detectionCountDown = playerDetctionThreshold;
+        _player = GetComponentInParent<Player>();
     }
 
     private void Start()
@@ -68,29 +69,28 @@ public class Blade : MonoBehaviour
 
     private void Update()
     {
-        // screenNormalPos = interactionManager.IsLeftHandPrimary() ? interactionManager.GetLeftHandScreenPos() : interactionManager.GetRightHandScreenPos();
+        // 2 people on 1 side might cause bug
+        Int64 userID = KinectHandPositionManager.Instance.GetUserIDBySide(_player.playerSide);
+        // if (_player.playerSide == Player.PlayerSide.LEFT)
+        //     Debug.Log(_kinectManager.GetUserPosition(userID));
         if (IsRightHand)
         {
-            // screenNormalPos = interactionManager.GetRightHandScreenPos(userID);
             screenNormalPos = KinectHandPositionManager.Instance.GetRightHandScreenPos(userID);
         }
         else
         {
-            // screenNormalPos = interactionManager.GetLeftHandScreenPos(userID);
             screenNormalPos = KinectHandPositionManager.Instance.GetLeftHandScreenPos(userID);
         }
 
-        if (IsPlayerTwo)
+        if (_player.playerSide == Player.PlayerSide.RIGHT)
         {
-            screenNormalPos = new Vector3(screenNormalPos.x / 2 + 0.5f, screenNormalPos.y, screenNormalPos.z);            
+            screenNormalPos = new Vector3(screenNormalPos.x / 2 + 0.5f, screenNormalPos.y, screenNormalPos.z);
         }
         else
         {
             screenNormalPos = new Vector3(screenNormalPos.x / 2, screenNormalPos.y, screenNormalPos.z);
         }
 
-        // screenPixelPos.x = (int)(screenNormalPos.x * (screenCamera ? screenCamera.pixelWidth : Screen.width));
-        // screenPixelPos.y = (int)(screenNormalPos.y * (screenCamera ? screenCamera.pixelHeight : Screen.height));
         // screenPixelPos.z = 0;
         _bladePos.x = _startPos.x + screenNormalPos.x * _boundary.x;
         _bladePos.y = _startPos.y + screenNormalPos.y * _boundary.y;
@@ -102,8 +102,6 @@ public class Blade : MonoBehaviour
                 _inactve = true;
                 GameManager.Instance.InactiveBlades++;
             }
-
-            // GameManager.Instance.EndGame();
         }
         else
         {
@@ -129,7 +127,6 @@ public class Blade : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // ContinueSlice();
         if (slicing)
         {
             RaycastHit[] raycastHit = Physics.SphereCastAll(transform.position, 2f, transform.forward, .2f, _hitLayerMask);
@@ -157,18 +154,8 @@ public class Blade : MonoBehaviour
 
     private void StartSlice()
     {
-        // Vector3 position = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-        // position.z = 0f;
-        // transform.position = position;
-
-        // screenNormalPos = interactionManager.GetRightHandScreenPos(userID);
-        // screenPixelPos.x = (int)(screenNormalPos.x * (screenCamera ? screenCamera.pixelWidth : Screen.width));
-        // screenPixelPos.y = (int)(screenNormalPos.y * (screenCamera ? screenCamera.pixelHeight : Screen.height));
-        // screenPixelPos.z = 0;
-        // transform.position = screenPixelPos;
         transform.position = _startPos;
         slicing = true;
-        // sliceCollider.enabled = true;
         sliceTrail.enabled = true;
         sliceTrail.Clear();
     }
@@ -176,22 +163,16 @@ public class Blade : MonoBehaviour
     private void StopSlice()
     {
         slicing = false;
-        // sliceCollider.enabled = false;
         sliceTrail.enabled = false;
     }
 
     private void ContinueSlice()
     {
-        // Vector3 newPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-        // newPosition.z = 0f;
         Vector3 newPosition = _bladePos;
         direction = newPosition - transform.position;
         float velocity = direction.magnitude / Time.deltaTime;
         slicing = velocity > minSliceVelocity;
-        // sliceCollider.enabled = velocity > minSliceVelocity;
-        // _rigidbody.position = newPosition;
         _rigidbody.MovePosition(newPosition);
-        // transform.position = newPosition;
     }
 
     private InteractionManager GetInteractionManager()

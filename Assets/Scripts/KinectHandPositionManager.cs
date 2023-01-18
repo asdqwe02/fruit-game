@@ -12,7 +12,7 @@ using UnityEngine.Events;
 public class KinectHandPositionManager : MonoBehaviour
 {
     private KinectManager kinectManager;
-    [SerializeField] private List<long> playerUserIDList = new List<long>();
+    [SerializeField] private List<long> _playerUserIDList = new List<long>();
     public static KinectHandPositionManager Instance;
 
     public bool leftHandInteraction = true;
@@ -64,10 +64,10 @@ public class KinectHandPositionManager : MonoBehaviour
         {
             # region Two-Person-HandPos
 
-            playerUserIDList = kinectManager.GetAllUserIds();
-            if (playerUserIDList.Count > 0)
+            _playerUserIDList = kinectManager.GetAllUserIds();
+            if (_playerUserIDList.Count > 0)
             {
-                foreach (var id in playerUserIDList)
+                foreach (var id in _playerUserIDList)
                 {
                     if (!leftHandPosDict.ContainsKey(id) || !rightHandPosDict.ContainsKey(id))
                     {
@@ -89,7 +89,7 @@ public class KinectHandPositionManager : MonoBehaviour
                 List<Int64> removeId = new List<Int64>();
                 foreach (var key in leftHandPosDict.Keys.ToList())
                 {
-                    if (playerUserIDList.Contains(key))
+                    if (_playerUserIDList.Contains(key))
                     {
                         // Int64 key = key.Key;
                         // update left hand position dictionary by key
@@ -135,7 +135,7 @@ public class KinectHandPositionManager : MonoBehaviour
 
                 foreach (var key in rightHandPosDict.Keys.ToList())
                 {
-                    if (playerUserIDList.Contains(key))
+                    if (_playerUserIDList.Contains(key))
                     {
                         // Int64 key = key;
                         Vector3 rightIboxLeftBotBackTemp = rightIboxLeftBotBackDict[key];
@@ -209,5 +209,51 @@ public class KinectHandPositionManager : MonoBehaviour
         }
 
         return Vector3.zero;
+    }
+
+    public Int64 GetUserIDBySide(Player.PlayerSide side)
+    {
+        List<long> LeftSidePlayerID = new List<long>();
+        LeftSidePlayerID = _playerUserIDList.Where(userID => GetUserPosition(userID).x < 0).ToList();
+        List<long> RightSidePlayerID = new List<long>();
+        RightSidePlayerID = _playerUserIDList.Where(userID => GetUserPosition(userID).x > 0).ToList();
+
+        // foreach (var userID in _playerUserIDList)
+        // {
+        //     if (GetUserPosition(userID).x < 0)
+        //     {
+        //         LeftSidePlayerID.Add(userID);
+        //     }
+        //     else if (GetUserPosition(userID).x > 0)
+        //     {
+        //         RightSidePlayerID.Add(userID);
+        //     }
+        // }
+
+        if (LeftSidePlayerID.Count > 1 && side == Player.PlayerSide.LEFT)
+        {
+            return GetUserPosition(LeftSidePlayerID[0]).z < GetUserPosition(LeftSidePlayerID[1]).z ? LeftSidePlayerID[0] : LeftSidePlayerID[1];
+        }
+
+        if (RightSidePlayerID.Count > 1 && side == Player.PlayerSide.RIGHT)
+        {
+            return GetUserPosition(RightSidePlayerID[0]).z < GetUserPosition(RightSidePlayerID[1]).z ? RightSidePlayerID[0] : RightSidePlayerID[1];
+        }
+
+        if (side == Player.PlayerSide.LEFT && LeftSidePlayerID.Count > 0)
+        {
+            return LeftSidePlayerID[0];
+        }
+        else if (side == Player.PlayerSide.RIGHT && RightSidePlayerID.Count > 0)
+        {
+            return RightSidePlayerID[0];
+        }
+
+        return -1;
+    }
+
+    Vector3 GetUserPosition(long userID)
+    {
+        return kinectManager.GetUserPosition(userID);
     }
 }

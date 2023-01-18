@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using System.Resources;
+using Unity.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Windows;
@@ -24,6 +25,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text _finalScoreText;
     [SerializeField] private GameObject _endScreen;
     [SerializeField] private GameObject _instructionScreen;
+    [SerializeField] private ParticleSystem _flowerParticle;
     private Coroutine countDownCoroutine;
     public bool Playing = false;
     [SerializeField] private GameObject _startFruit;
@@ -82,6 +84,7 @@ public class GameManager : MonoBehaviour
             KinectManager.Instance.maxLeftRightDistance = configSetting.maxSideDistance;
             KinectManager.Instance.sensorHeight = configSetting.sensorHeight;
             KinectManager.Instance.displayColorMap = configSetting.displayerColorMap;
+            KinectManager.Instance.displayUserMap = configSetting.displayerUserMap;
             KinectManager.Instance.DisplayMapsWidthPercent = configSetting.displayMapWidthPercent;
             KinectManager.Instance.calibrationText.gameObject.SetActive(configSetting.enableDebugText);
         }
@@ -93,7 +96,7 @@ public class GameManager : MonoBehaviour
         _startFruit.SetActive(false);
         _instructionScreen.SetActive(false);
         ClearScene();
-
+        _flowerParticle.gameObject.SetActive(false);
 
         foreach (var player in _players)
         {
@@ -279,6 +282,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         _endScreen.SetActive(false);
         _startFruit.SetActive(true);
+        _flowerParticle.gameObject.SetActive(true);
         ClearScene();
     }
 
@@ -302,8 +306,20 @@ public class GameManager : MonoBehaviour
             {
                 if (player.UserID == -1)
                 {
-                    player.UserID = userID;
-                    return;
+                    if (KinectManager.Instance.GetUsersCount() > 1)
+                    {
+                        player.UserID = userID;
+                        return;
+                    }
+
+                    if (KinectManager.Instance.GetUserPosition(userID).x < 0 && player.playerSide == Player.PlayerSide.LEFT)
+                    {
+                        player.UserID = userID;
+                    }
+                    else if (KinectManager.Instance.GetUserPosition(userID).x > 0 && player.playerSide == Player.PlayerSide.RIGHT)
+                    {
+                        player.UserID = userID;
+                    }
                 }
             }
         }
