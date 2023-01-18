@@ -234,7 +234,7 @@ public class KinectHandPositionManager : MonoBehaviour
         {
             return GetUserPosition(LeftSidePlayerID[0]).z < GetUserPosition(LeftSidePlayerID[1]).z ? LeftSidePlayerID[0] : LeftSidePlayerID[1];
         }
-
+        
         if (RightSidePlayerID.Count > 1 && side == Player.PlayerSide.RIGHT)
         {
             return GetUserPosition(RightSidePlayerID[0]).z < GetUserPosition(RightSidePlayerID[1]).z ? RightSidePlayerID[0] : RightSidePlayerID[1];
