@@ -6,11 +6,18 @@ public class Bomb : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
-        {
-            GetComponent<Collider>().enabled = false;
-            GameManager.Instance.Explode(transform);
-            particleSystem.Play();
-        }
+        // if (other.CompareTag("Player"))
+        // {
+        //     // GetComponent<Collider>().enabled = false;
+        //     // GameManager.Instance.Explode(transform);
+        //     // particleSystem.Play();
+        // }
+    }
+
+    public void Explode()
+    {
+        GetComponent<Collider>().enabled = false;
+        GameManager.Instance.Explode(transform);
+        particleSystem.Play();
     }
 }
