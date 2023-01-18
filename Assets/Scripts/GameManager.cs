@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text _finalScoreText;
     [SerializeField] private GameObject _endScreen;
     [SerializeField] private GameObject _instructionScreen;
+    [SerializeField] private ParticleSystem _flowerParticle;
     private Coroutine countDownCoroutine;
     public bool Playing = false;
     [SerializeField] private GameObject _startFruit;
@@ -31,6 +32,7 @@ public class GameManager : MonoBehaviour
     private int _inactiveBlades = 0;
     [SerializeField] private string configFileName;
     private string kinectManagerConfig;
+
 
     public int InactiveBlades
     {
@@ -92,6 +94,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         _startFruit.SetActive(false);
         _instructionScreen.SetActive(false);
+        _flowerParticle.gameObject.SetActive(false);
         ClearScene();
 
 
@@ -279,6 +282,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         _endScreen.SetActive(false);
         _startFruit.SetActive(true);
+        _flowerParticle.gameObject.SetActive(true);
         ClearScene();
     }
 
