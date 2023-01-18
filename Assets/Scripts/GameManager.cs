@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text _finalScoreText;
     [SerializeField] private GameObject _endScreen;
     [SerializeField] private GameObject _instructionScreen;
+    [SerializeField] private ParticleSystem _flowerParticleSystem;
     private Coroutine countDownCoroutine;
     public bool Playing = false;
     [SerializeField] private GameObject _startFruit;
@@ -67,6 +68,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         _startFruit.SetActive(false);
         _instructionScreen.SetActive(false);
+        _flowerParticleSystem.gameObject.SetActive(false);
         ClearScene();
 
         foreach (var blade in _blades)
@@ -113,6 +115,7 @@ public class GameManager : MonoBehaviour
         {
             blade.enabled = true;
         }
+
         spawner.enabled = false;
 
         StartCoroutine(ExplodeSequence(bomb));
@@ -244,6 +247,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         _endScreen.SetActive(false);
         _startFruit.SetActive(true);
+        _flowerParticleSystem.gameObject.SetActive(true);
         ClearScene();
     }
 

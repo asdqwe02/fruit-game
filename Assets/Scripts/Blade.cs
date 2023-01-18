@@ -123,6 +123,11 @@ public class Blade : MonoBehaviour
             {
                 fruit.Slice(direction, transform.position, sliceForce);
             }
+            else
+            {
+                collider.GetComponent<Bomb>().Explode();
+            }
+            
         }
         // Physics.SphereCast(transform.position, 2f,out raycastHit);
     }
