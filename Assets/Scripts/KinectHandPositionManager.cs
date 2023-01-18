@@ -69,14 +69,18 @@ public class KinectHandPositionManager : MonoBehaviour
             {
                 foreach (var id in _playerUserIDList)
                 {
-                    if (!leftHandPosDict.ContainsKey(id) || !rightHandPosDict.ContainsKey(id))
+                    if (!leftHandPosDict.ContainsKey(id))
                     {
                         // left hand
                         leftHandPosDict.Add(id, Vector3.zero);
                         leftIboxLeftBotBackDict.Add(id, Vector3.zero);
                         leftIboxRightTopFrontDict.Add(id, Vector3.zero);
                         // UserIdUpdate?.Invoke(id, false);
+                        UserIdUpdate?.Invoke(id, false);
+                    }
 
+                    if (!rightHandPosDict.ContainsKey(id))
+                    {
                         // right right hand
                         rightHandPosDict.Add(id, Vector3.zero);
                         rightIboxLeftBotBackDict.Add(id, Vector3.zero);
@@ -234,7 +238,7 @@ public class KinectHandPositionManager : MonoBehaviour
         {
             return GetUserPosition(LeftSidePlayerID[0]).z < GetUserPosition(LeftSidePlayerID[1]).z ? LeftSidePlayerID[0] : LeftSidePlayerID[1];
         }
-        
+
         if (RightSidePlayerID.Count > 1 && side == Player.PlayerSide.RIGHT)
         {
             return GetUserPosition(RightSidePlayerID[0]).z < GetUserPosition(RightSidePlayerID[1]).z ? RightSidePlayerID[0] : RightSidePlayerID[1];
