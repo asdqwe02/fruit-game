@@ -25,6 +25,7 @@ public class Fruit : MonoBehaviour
 
     public void Slice(Vector3 direction, Vector3 position, float force)
     {
+        AudioManager.Instance.PlaySound(AudioManager.Sound.FruitSlice, transform.position);
         if (SliceToStart)
         {
             StartCoroutine(Reset(2f));
