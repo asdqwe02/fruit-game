@@ -11832,10 +11832,11 @@ MonoBehaviour:
   _finalScoreText: {fileID: 1927343701}
   _endScreen: {fileID: 597195160}
   _instructionScreen: {fileID: 748771154}
-  _flowerParticleSystem: {fileID: 173721710}
+  _flowerParticleSystem: {fileID: 0}
   Playing: 0
   _startFruit: {fileID: 130782219}
   StartFruitCount: 0
+  configFileName: config.json
 --- !u!1 &1672351900
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Resources;
+using Setting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -27,6 +28,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject _startFruit;
     public int StartFruitCount = 0;
     private int _inactiveBlades = 0;
+    [SerializeField] private string configFileName;
 
     public int InactiveBlades
     {
@@ -54,6 +56,9 @@ public class GameManager : MonoBehaviour
 
         _mainCamera = Camera.main;
         _cameraEffectController = _mainCamera.GetComponent<CameraEffectController>();
+
+        string configFilePath = Application.streamingAssetsPath + "/" + configFileName;
+        ReadConfigFile(configFilePath);
         // spawner = FindObjectOfType<Spawner>();
     }
 
@@ -61,6 +66,23 @@ public class GameManager : MonoBehaviour
     {
         // NewGame();
         // Debug.Log(GetBladeStartPosition());
+    }
+
+    public void ReadConfigFile(string path)
+    {
+        if (System.IO.File.Exists(path))
+        {
+            string kinectManagerConfig = System.IO.File.ReadAllText(path);
+            KinectManagerConfig configSetting = JsonUtility.FromJson<KinectManagerConfig>(kinectManagerConfig);
+            KinectManager.Instance.maxUserDistance = configSetting.maxUserDistance;
+            KinectManager.Instance.minUserDistance = configSetting.minUserDistance;
+            KinectManager.Instance.maxLeftRightDistance = configSetting.maxSideDistance;
+            KinectManager.Instance.sensorHeight = configSetting.sensorHeight;
+            KinectManager.Instance.displayColorMap = configSetting.displayerColorMap;
+            KinectManager.Instance.displayUserMap = configSetting.displayerUserMap;
+            KinectManager.Instance.DisplayMapsWidthPercent = configSetting.displayMapWidthPercent;
+            KinectManager.Instance.calibrationText.gameObject.SetActive(configSetting.enableDebugText);
+        }
     }
 
     private void NewGame()
