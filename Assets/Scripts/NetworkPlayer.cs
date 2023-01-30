@@ -7,7 +7,7 @@ using System.Net.Sockets;
 using System.Text;
 using UnityEngine;
 
-public class NetWorkPlayer : MonoBehaviour
+public class NetworkPlayer : MonoBehaviour
 {
     public int ListenPort = 11000;
     private IPEndPoint listenEndPoint;
@@ -24,8 +24,8 @@ public class NetWorkPlayer : MonoBehaviour
         // IPEndPoint ep = new IPEndPoint(System.Net.IPAddress.Parse(IPAddress), ListenPort);
         // _udpClient.Connect(ep);
         // _udpClient.Client.Blocking = false;
-        _udpClient = new UdpClient();
-        listenEndPoint = new IPEndPoint(System.Net.IPAddress.Parse(IPAddress), 44444); // endpoint where server is listening
+        _udpClient = new UdpClient(ListenPort);
+        listenEndPoint = new IPEndPoint(System.Net.IPAddress.Parse(IPAddress), 0); // endpoint where server is listening
         _udpClient.Connect(listenEndPoint);
         _udpClient.BeginReceive(new AsyncCallback(OnReceived), _udpClient);
 
@@ -38,9 +38,10 @@ public class NetWorkPlayer : MonoBehaviour
         IPEndPoint source = new IPEndPoint(0, 0);
         byte[] message = socket.EndReceive(ar, ref source);
         string returnData = Encoding.ASCII.GetString(message);
-        UnityMainThreadDispatcher.Instance().Enqueue(() => Debug.Log("recieved data"));
-        Debug.Log("recieved data");
-        recieveData = true;
+        // UnityMainThreadDispatcher.Instance().Enqueue(() => Debug.Log("recieved data"));
+        UnityMainThreadDispatcher.Instance().Enqueue(() => Debug.Log(returnData));
+        // Debug.Log("recieved data");
+        // recieveData = true;
         socket.BeginReceive(new AsyncCallback(OnReceived), socket);
         // Debug.Log(ar.ToString());
     }
@@ -48,10 +49,10 @@ public class NetWorkPlayer : MonoBehaviour
     void Update()
     {
 
-        if (recieveData)
-        {
-            Debug.Log("recieved data");
-        }
+        // if (recieveData)
+        // {
+        //     Debug.Log("recieved data");
+        // }
         // byte[] data = Encoding.ASCII.GetBytes("request data from server");
         // _udpClient.Send(data, data.Length);
     }
