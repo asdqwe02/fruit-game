@@ -30,9 +30,6 @@ public class Blade : MonoBehaviour
     private bool slicing;
     public bool IsRightHand;
     public bool IsPlayerTwo;
-    public float playerDetctionThreshold = 2f;
-    private float detectionCountDown;
-    [SerializeField] private bool _inactve;
     [SerializeField] private LayerMask _hitLayerMask;
     public Int64 userID;
     private Player _player;
@@ -43,7 +40,6 @@ public class Blade : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody>();
         // sliceCollider = GetComponent<Collider>();
         sliceTrail = GetComponentInChildren<TrailRenderer>();
-        detectionCountDown = playerDetctionThreshold;
         _player = GetComponentInParent<Player>();
     }
 
@@ -69,10 +65,7 @@ public class Blade : MonoBehaviour
 
     private void Update()
     {
-        // 2 people on 1 side might cause bug
         Int64 userID = KinectHandPositionManager.Instance.GetUserIDBySide(_player.playerSide);
-        // if (_player.playerSide == Player.PlayerSide.LEFT)
-        //     Debug.Log(_kinectManager.GetUserPosition(userID));
         if (IsRightHand)
         {
             screenNormalPos = KinectHandPositionManager.Instance.GetRightHandScreenPos(userID);
@@ -94,21 +87,7 @@ public class Blade : MonoBehaviour
         // screenPixelPos.z = 0;
         _bladePos.x = _startPos.x + screenNormalPos.x * _boundary.x;
         _bladePos.y = _startPos.y + screenNormalPos.y * _boundary.y;
-        if (_bladePos == transform.position && GameManager.Instance.Playing)
-        {
-            detectionCountDown -= Time.unscaledDeltaTime;
-            if (detectionCountDown < 0 && !_inactve)
-            {
-                _inactve = true;
-                GameManager.Instance.InactiveBlades++;
-            }
-        }
-        else
-        {
-            detectionCountDown = playerDetctionThreshold;
-            GameManager.Instance.InactiveBlades--;
-            _inactve = false;
-        }
+
 
         // if (Input.GetMouseButtonDown(0))
         // {

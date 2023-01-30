@@ -346,8 +346,6 @@ MonoBehaviour:
   _boundary: {x: 0, y: 0}
   IsRightHand: 1
   IsPlayerTwo: 0
-  playerDetctionThreshold: 5
-  _inactve: 0
   _hitLayerMask:
     serializedVersion: 2
     m_Bits: 192
@@ -947,8 +945,6 @@ MonoBehaviour:
   _boundary: {x: 0, y: 0}
   IsRightHand: 0
   IsPlayerTwo: 0
-  playerDetctionThreshold: 5
-  _inactve: 0
   _hitLayerMask:
     serializedVersion: 2
     m_Bits: 192
@@ -1822,8 +1818,6 @@ MonoBehaviour:
   _boundary: {x: 0, y: 0}
   IsRightHand: 1
   IsPlayerTwo: 0
-  playerDetctionThreshold: 5
-  _inactve: 0
   _hitLayerMask:
     serializedVersion: 2
     m_Bits: 192
@@ -2116,8 +2110,6 @@ MonoBehaviour:
   _boundary: {x: 0, y: 0}
   IsRightHand: 0
   IsPlayerTwo: 0
-  playerDetctionThreshold: 5
-  _inactve: 0
   _hitLayerMask:
     serializedVersion: 2
     m_Bits: 192
@@ -2319,8 +2311,6 @@ MonoBehaviour:
   _boundary: {x: 0, y: 0}
   IsRightHand: 1
   IsPlayerTwo: 0
-  playerDetctionThreshold: 5
-  _inactve: 0
   _hitLayerMask:
     serializedVersion: 2
     m_Bits: 192
@@ -7800,8 +7790,6 @@ MonoBehaviour:
   _boundary: {x: 0, y: 0}
   IsRightHand: 0
   IsPlayerTwo: 0
-  playerDetctionThreshold: 5
-  _inactve: 0
   _hitLayerMask:
     serializedVersion: 2
     m_Bits: 192
@@ -12962,10 +12950,11 @@ MonoBehaviour:
   _endScreen: {fileID: 597195160}
   _instructionScreen: {fileID: 748771154}
   _flowerParticle: {fileID: 1456812994}
-  Playing: 0
+  IsPlaying: 0
   _startFruit: {fileID: 130782219}
   StartFruitCount: 0
   configFileName: config.json
+  _playerDetectionTreshHold: 5
 --- !u!1 &1456812992
 GameObject:
   m_ObjectHideFlags: 0
@@ -18012,8 +18001,6 @@ MonoBehaviour:
   _boundary: {x: 0, y: 0}
   IsRightHand: 0
   IsPlayerTwo: 0
-  playerDetctionThreshold: 5
-  _inactve: 0
   _hitLayerMask:
     serializedVersion: 2
     m_Bits: 192
@@ -18748,8 +18735,6 @@ MonoBehaviour:
   _boundary: {x: 0, y: 0}
   IsRightHand: 1
   IsPlayerTwo: 0
-  playerDetctionThreshold: 5
-  _inactve: 0
   _hitLayerMask:
     serializedVersion: 2
     m_Bits: 192

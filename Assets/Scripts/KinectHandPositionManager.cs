@@ -269,4 +269,9 @@ public class KinectHandPositionManager : MonoBehaviour
     {
         return kinectManager.GetUserPosition(userID);
     }
+
+    public int GetPlayerCount()
+    {
+        return _playerUserIDList.Count;
+    }
 }

@@ -27,24 +27,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject _instructionScreen;
     [SerializeField] private ParticleSystem _flowerParticle;
     private Coroutine countDownCoroutine;
-    public bool Playing = false;
+    public bool IsPlaying = false;
     [SerializeField] private GameObject _startFruit;
     public int StartFruitCount = 0;
     private int _inactiveBlades = 0;
     [SerializeField] private string configFileName;
+    [SerializeField] private float _playerDetectionTreshHold = 5f;
+    [SerializeField] private float _playerDetectionCountDown;
     private string kinectManagerConfig;
-
-    public int InactiveBlades
-    {
-        get { return _inactiveBlades; }
-        set
-        {
-            _inactiveBlades = value;
-            if (_inactiveBlades < 0)
-                _inactiveBlades = 0;
-            OnInactiveBlade();
-        }
-    }
 
     private void Awake()
     {
@@ -58,6 +48,7 @@ public class GameManager : MonoBehaviour
             return;
         }
 
+        _playerDetectionCountDown = _playerDetectionTreshHold;
         _mainCamera = Camera.main;
         _cameraEffectController = _mainCamera.GetComponent<CameraEffectController>();
         // spawner = FindObjectOfType<Spawner>();
@@ -108,7 +99,7 @@ public class GameManager : MonoBehaviour
         // }
 
         spawner.enabled = true;
-        Playing = true;
+        IsPlaying = true;
 
         score = 0;
         scoreText.text = score.ToString();
@@ -158,18 +149,36 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (!Playing && StartFruitCount >= 2)
+        // count down if no player found
+        if (KinectHandPositionManager.Instance.GetPlayerCount() <= 0 && IsPlaying)
+        {
+            _playerDetectionCountDown -= Time.deltaTime;
+            if (_playerDetectionCountDown <= 0)
+            {
+                _playerDetectionCountDown = _playerDetectionTreshHold;
+                EndGame();
+            }
+
+            return;
+        }
+        else
+        {
+            _playerDetectionCountDown = _playerDetectionTreshHold;
+        }
+
+        
+        if (!IsPlaying && StartFruitCount >= 2)
         {
             StartFruitCount = 0;
             ResetGame();
         }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Time.timeScale = 1;
-            _startFruit.SetActive(true);
-            _endScreen.SetActive(false);
-        }
+        //
+        // if (Input.GetKeyDown(KeyCode.Space))
+        // {
+        //     Time.timeScale = 1;
+        //     _startFruit.SetActive(true);
+        //     _endScreen.SetActive(false);
+        // }
     }
 
     private IEnumerator ExplodeSequence(Transform bomb = null)
@@ -233,9 +242,10 @@ public class GameManager : MonoBehaviour
 
     public void EndGame()
     {
-        Playing = false;
+        IsPlaying = false;
         spawner.enabled = false;
-        StopCoroutine(countDownCoroutine);
+        if (countDownCoroutine != null)
+            StopCoroutine(countDownCoroutine);
         _endScreen.SetActive(true);
         _instructionScreen.SetActive(true);
         _finalScoreText.text = "Final Score: " + score;
