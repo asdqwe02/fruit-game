@@ -29,7 +29,22 @@ public class GameManager : MonoBehaviour
     private Coroutine countDownCoroutine;
     public bool IsPlaying = false;
     [SerializeField] private GameObject _startFruit;
-    public int StartFruitCount = 0;
+    private int _startFruitCount;
+
+    public int StartFruitCount
+    {
+        get { return _startFruitCount; }
+        set
+        {
+            _startFruitCount = value;
+            if (_startFruitCount >= 2)
+            {
+                _startFruitCount = 0;
+                ResetGame();
+            }
+        }
+    }
+
     private int _inactiveBlades = 0;
     [SerializeField] private string configFileName;
     [SerializeField] private float _playerDetectionTreshHold = 5f;
@@ -166,12 +181,12 @@ public class GameManager : MonoBehaviour
             _playerDetectionCountDown = _playerDetectionTreshHold;
         }
 
-        
-        if (!IsPlaying && StartFruitCount >= 2)
-        {
-            StartFruitCount = 0;
-            ResetGame();
-        }
+
+        // if (!IsPlaying && StartFruitCount >= 2)
+        // {
+        //     StartFruitCount = 0;
+        //     ResetGame();
+        // }
         //
         // if (Input.GetKeyDown(KeyCode.Space))
         // {
