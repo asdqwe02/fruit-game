@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using System.Resources;
+using Unity.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Windows;
@@ -26,25 +27,32 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject _instructionScreen;
     [SerializeField] private ParticleSystem _flowerParticle;
     private Coroutine countDownCoroutine;
-    public bool Playing = false;
+    public bool IsPlaying = false;
     [SerializeField] private GameObject _startFruit;
-    public int StartFruitCount = 0;
-    private int _inactiveBlades = 0;
-    [SerializeField] private string configFileName;
-    private string kinectManagerConfig;
+    private int _startFruitCount;
 
+    [HideInInspector]
+    public bool BombExplode;
 
-    public int InactiveBlades
+    public int StartFruitCount
     {
-        get { return _inactiveBlades; }
+        get { return _startFruitCount; }
         set
         {
-            _inactiveBlades = value;
-            if (_inactiveBlades < 0)
-                _inactiveBlades = 0;
-            OnInactiveBlade();
+            _startFruitCount = value;
+            if (_startFruitCount >= 2)
+            {
+                _startFruitCount = 0;
+                ResetGame();
+            }
         }
     }
+
+    private int _inactiveBlades = 0;
+    [SerializeField] private string configFileName;
+    [SerializeField] private float _playerDetectionTreshHold = 5f;
+    private float _playerDetectionCountDown;
+    private string kinectManagerConfig;
 
     private void Awake()
     {
@@ -58,6 +66,7 @@ public class GameManager : MonoBehaviour
             return;
         }
 
+        _playerDetectionCountDown = _playerDetectionTreshHold;
         _mainCamera = Camera.main;
         _cameraEffectController = _mainCamera.GetComponent<CameraEffectController>();
         // spawner = FindObjectOfType<Spawner>();
@@ -84,6 +93,7 @@ public class GameManager : MonoBehaviour
             KinectManager.Instance.maxLeftRightDistance = configSetting.maxSideDistance;
             KinectManager.Instance.sensorHeight = configSetting.sensorHeight;
             KinectManager.Instance.displayColorMap = configSetting.displayerColorMap;
+            KinectManager.Instance.displayUserMap = configSetting.displayerUserMap;
             KinectManager.Instance.DisplayMapsWidthPercent = configSetting.displayMapWidthPercent;
             KinectManager.Instance.calibrationText.gameObject.SetActive(configSetting.enableDebugText);
         }
@@ -94,21 +104,15 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         _startFruit.SetActive(false);
         _instructionScreen.SetActive(false);
-        _flowerParticle.gameObject.SetActive(false);
         ClearScene();
-
-
-        foreach (var player in _players)
-        {
-            player.EnableBlades();
-        }
+        _flowerParticle.gameObject.SetActive(false);
         // foreach (var blade in _blades)
         // {
         //     blade.enabled = true;
         // }
 
         spawner.enabled = true;
-        Playing = true;
+        IsPlaying = true;
 
         score = 0;
         scoreText.text = score.ToString();
@@ -132,6 +136,11 @@ public class GameManager : MonoBehaviour
         {
             Destroy(bomb.gameObject);
         }
+
+        foreach (var player in _players)
+        {
+            player.EnableBlades();
+        }
     }
 
     public void IncreaseScore(int points)
@@ -144,7 +153,8 @@ public class GameManager : MonoBehaviour
     {
         foreach (var player in _players)
         {
-            player.EnableBlades();
+            Debug.Log("disabled blade");
+            player.DisableBlades();
         }
 
         // foreach (var blade in _blades)
@@ -158,18 +168,36 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (!Playing && StartFruitCount >= 2)
+        // count down if no player found
+        if (KinectHandPositionManager.Instance.GetPlayerCount() <= 0 && IsPlaying)
         {
-            StartFruitCount = 0;
-            ResetGame();
+            _playerDetectionCountDown -= Time.deltaTime;
+            if (_playerDetectionCountDown <= 0)
+            {
+                _playerDetectionCountDown = _playerDetectionTreshHold;
+                EndGame();
+            }
+
+            return;
+        }
+        else
+        {
+            _playerDetectionCountDown = _playerDetectionTreshHold;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Time.timeScale = 1;
-            _startFruit.SetActive(true);
-            _endScreen.SetActive(false);
-        }
+
+        // if (!IsPlaying && StartFruitCount >= 2)
+        // {
+        //     StartFruitCount = 0;
+        //     ResetGame();
+        // }
+        //
+        // if (Input.GetKeyDown(KeyCode.Space))
+        // {
+        //     Time.timeScale = 1;
+        //     _startFruit.SetActive(true);
+        //     _endScreen.SetActive(false);
+        // }
     }
 
     private IEnumerator ExplodeSequence(Transform bomb = null)
@@ -233,9 +261,10 @@ public class GameManager : MonoBehaviour
 
     public void EndGame()
     {
-        Playing = false;
+        IsPlaying = false;
         spawner.enabled = false;
-        StopCoroutine(countDownCoroutine);
+        if (countDownCoroutine != null)
+            StopCoroutine(countDownCoroutine);
         _endScreen.SetActive(true);
         _instructionScreen.SetActive(true);
         _finalScoreText.text = "Final Score: " + score;
@@ -286,14 +315,6 @@ public class GameManager : MonoBehaviour
         ClearScene();
     }
 
-    private void OnInactiveBlade()
-    {
-        if (_inactiveBlades >= _players.Count * 2)
-        {
-            EndGame();
-        }
-    }
-
     void OnUserIDUpdate(Int64 userID, bool remove)
     {
         foreach (var player in _players)
@@ -306,8 +327,20 @@ public class GameManager : MonoBehaviour
             {
                 if (player.UserID == -1)
                 {
-                    player.UserID = userID;
-                    return;
+                    if (KinectManager.Instance.GetUsersCount() > 1)
+                    {
+                        player.UserID = userID;
+                        return;
+                    }
+
+                    if (KinectManager.Instance.GetUserPosition(userID).x < 0 && player.playerSide == Player.PlayerSide.LEFT)
+                    {
+                        player.UserID = userID;
+                    }
+                    else if (KinectManager.Instance.GetUserPosition(userID).x > 0 && player.playerSide == Player.PlayerSide.RIGHT)
+                    {
+                        player.UserID = userID;
+                    }
                 }
             }
         }

@@ -7,6 +7,13 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private Int64 _userId = -1;
+    [SerializeField] private PlayerSide _playerSide;
+
+    public PlayerSide playerSide
+    {
+        get { return _playerSide; }
+    }
+
 
     public Int64 UserID
     {
@@ -24,6 +31,7 @@ public class Player : MonoBehaviour
     {
         _blades = GetComponentsInChildren<Blade>().ToList();
     }
+
 
     public void UpdateBladeUserID(Int64 userID)
     {
@@ -52,5 +60,11 @@ public class Player : MonoBehaviour
         {
             blade.enabled = true;
         }
+    }
+
+    public enum PlayerSide
+    {
+        LEFT,
+        RIGHT
     }
 }

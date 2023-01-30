@@ -13,7 +13,7 @@ public class Bomb : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && GameManager.Instance.IsPlaying)
         {
             // GetComponent<Collider>().enabled = false;
             // GameManager.Instance.Explode(transform);
