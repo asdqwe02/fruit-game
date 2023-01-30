@@ -110,7 +110,6 @@ public class Blade : MonoBehaviour
             _inactve = false;
         }
 
-        ContinueSlice();
         // if (Input.GetMouseButtonDown(0))
         // {
         //     StartSlice();
@@ -127,6 +126,7 @@ public class Blade : MonoBehaviour
 
     private void FixedUpdate()
     {
+        ContinueSlice();
         if (slicing)
         {
             RaycastHit[] raycastHit = Physics.SphereCastAll(transform.position, 2f, transform.forward, .2f, _hitLayerMask);

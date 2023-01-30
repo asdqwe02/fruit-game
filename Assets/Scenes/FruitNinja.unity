@@ -1559,6 +1559,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerUserIDList: 
+  _handPosScaleValue: 0.75
   leftHandInteraction: 1
   rightHandInteraction: 1
   UserIdUpdate:

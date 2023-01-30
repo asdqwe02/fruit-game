@@ -13,8 +13,11 @@ public class KinectHandPositionManager : MonoBehaviour
 {
     private KinectManager kinectManager;
     [SerializeField] private List<long> _playerUserIDList = new List<long>();
-    public static KinectHandPositionManager Instance;
 
+    [Range(0.001f, 1f)]
+    [SerializeField] private float _handPosScaleValue = 1;
+
+    public static KinectHandPositionManager Instance;
     public bool leftHandInteraction = true;
     public bool rightHandInteraction = true;
 
@@ -117,12 +120,15 @@ public class KinectHandPositionManager : MonoBehaviour
                             // update left hand screen position dictionary by key
                             leftHandScreenPosDict[key] =
                                 new Vector3(
-                                    Mathf.Clamp01((leftHandPosDict[key].x - leftIboxLeftBotBackDict[key].x) /
-                                                  (leftIboxRightTopFrontDict[key].x - leftIboxLeftBotBackDict[key].x)),
-                                    Mathf.Clamp01((leftHandPosDict[key].y - leftIboxLeftBotBackDict[key].y) /
-                                                  (leftIboxRightTopFrontDict[key].y - leftIboxLeftBotBackDict[key].y)),
-                                    Mathf.Clamp01((leftIboxLeftBotBackDict[key].z - leftHandPosDict[key].z) /
-                                                  (leftIboxLeftBotBackDict[key].z - leftIboxLeftBotBackDict[key].z))
+                                    Mathf.Clamp01(
+                                        _handPosScaleValue * (leftHandPosDict[key].x - leftIboxLeftBotBackDict[key].x) /
+                                        (leftIboxRightTopFrontDict[key].x - leftIboxLeftBotBackDict[key].x)),
+                                    Mathf.Clamp01(
+                                        _handPosScaleValue * (leftHandPosDict[key].y - leftIboxLeftBotBackDict[key].y) /
+                                        (leftIboxRightTopFrontDict[key].y - leftIboxLeftBotBackDict[key].y)),
+                                    Mathf.Clamp01(
+                                        _handPosScaleValue * (leftIboxLeftBotBackDict[key].z - leftHandPosDict[key].z) /
+                                        (leftIboxLeftBotBackDict[key].z - leftIboxLeftBotBackDict[key].z))
                                 );
                         }
                     }
@@ -159,12 +165,15 @@ public class KinectHandPositionManager : MonoBehaviour
                             rightHandPosDict[key] = rightHandJoinPos;
                             rightHandScreenPosDict[key] =
                                 new Vector3(
-                                    Mathf.Clamp01((rightHandPosDict[key].x - rightIboxLeftBotBackDict[key].x) /
-                                                  (rightIboxRightTopFrontDict[key].x - rightIboxLeftBotBackDict[key].x)),
-                                    Mathf.Clamp01((rightHandPosDict[key].y - rightIboxLeftBotBackDict[key].y) /
-                                                  (rightIboxRightTopFrontDict[key].y - rightIboxLeftBotBackDict[key].y)),
-                                    Mathf.Clamp01((rightIboxLeftBotBackDict[key].z - rightHandPosDict[key].z) /
-                                                  (rightIboxLeftBotBackDict[key].z - rightIboxLeftBotBackDict[key].z))
+                                    Mathf.Clamp01(
+                                        _handPosScaleValue * (rightHandPosDict[key].x - rightIboxLeftBotBackDict[key].x) /
+                                        (rightIboxRightTopFrontDict[key].x - rightIboxLeftBotBackDict[key].x)),
+                                    Mathf.Clamp01(
+                                        _handPosScaleValue * (rightHandPosDict[key].y - rightIboxLeftBotBackDict[key].y) /
+                                        (rightIboxRightTopFrontDict[key].y - rightIboxLeftBotBackDict[key].y)),
+                                    Mathf.Clamp01(
+                                        _handPosScaleValue * (rightIboxLeftBotBackDict[key].z - rightHandPosDict[key].z) /
+                                        (rightIboxLeftBotBackDict[key].z - rightIboxLeftBotBackDict[key].z))
                                 );
                         }
                     }
