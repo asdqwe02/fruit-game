@@ -351,7 +351,7 @@ MonoBehaviour:
   _hitLayerMask:
     serializedVersion: 2
     m_Bits: 192
-  userID: -1
+  userID: 0
 --- !u!1 &200271834
 GameObject:
   m_ObjectHideFlags: 0
@@ -952,7 +952,7 @@ MonoBehaviour:
   _hitLayerMask:
     serializedVersion: 2
     m_Bits: 192
-  userID: -1
+  userID: 0
 --- !u!1 &401492567
 GameObject:
   m_ObjectHideFlags: 0
@@ -1827,7 +1827,7 @@ MonoBehaviour:
   _hitLayerMask:
     serializedVersion: 2
     m_Bits: 192
-  userID: -1
+  userID: 0
 --- !u!54 &835024516
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2121,7 +2121,7 @@ MonoBehaviour:
   _hitLayerMask:
     serializedVersion: 2
     m_Bits: 192
-  userID: -1
+  userID: 0
 --- !u!4 &928373368
 Transform:
   m_ObjectHideFlags: 0
@@ -2318,13 +2318,13 @@ MonoBehaviour:
   rightHandInteraction: 1
   _boundary: {x: 0, y: 0}
   IsRightHand: 1
-  IsPlayerTwo: 1
+  IsPlayerTwo: 0
   playerDetctionThreshold: 5
   _inactve: 0
   _hitLayerMask:
     serializedVersion: 2
     m_Bits: 192
-  userID: -1
+  userID: 0
 --- !u!1 &979363110
 GameObject:
   m_ObjectHideFlags: 0
@@ -7805,7 +7805,7 @@ MonoBehaviour:
   _hitLayerMask:
     serializedVersion: 2
     m_Bits: 192
-  userID: -1
+  userID: 0
 --- !u!1 &1348138550
 GameObject:
   m_ObjectHideFlags: 0
@@ -12954,9 +12954,7 @@ MonoBehaviour:
   _blades:
   - {fileID: 928373367}
   - {fileID: 835024514}
-  _players:
-  - {fileID: 200271836}
-  - {fileID: 979363111}
+  _players: []
   spawner: {fileID: 1865947125}
   _countDownTime: 90
   _countDownText: {fileID: 1812119445}
@@ -18013,13 +18011,13 @@ MonoBehaviour:
   rightHandInteraction: 1
   _boundary: {x: 0, y: 0}
   IsRightHand: 0
-  IsPlayerTwo: 1
+  IsPlayerTwo: 0
   playerDetctionThreshold: 5
   _inactve: 0
   _hitLayerMask:
     serializedVersion: 2
     m_Bits: 192
-  userID: -1
+  userID: 0
 --- !u!1 &1744158370
 GameObject:
   m_ObjectHideFlags: 0
@@ -18755,7 +18753,7 @@ MonoBehaviour:
   _hitLayerMask:
     serializedVersion: 2
     m_Bits: 192
-  userID: -1
+  userID: 0
 --- !u!1 &2144719827
 GameObject:
   m_ObjectHideFlags: 0
