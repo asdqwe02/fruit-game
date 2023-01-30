@@ -5,9 +5,11 @@ using System.Data;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using Class;
 using UnityEngine;
+using NetworkPlayer = Class.NetworkPlayer;
 
-public class NetworkPlayer : MonoBehaviour
+public class NetworkPlayerController : MonoBehaviour
 {
     public int ListenPort = 11000;
     private IPEndPoint listenEndPoint;
@@ -15,7 +17,11 @@ public class NetworkPlayer : MonoBehaviour
     private UdpClient _udpClient;
     private int size = 1024;
     private byte[] recieveBuffer;
+
     private bool recieveData;
+
+    // [SerializeField] private List<Blade> _blades;
+    [SerializeField] private List<NetworkPlayer> _networkPlayers;
 
     void Start()
     {
@@ -37,23 +43,23 @@ public class NetworkPlayer : MonoBehaviour
         UdpClient socket = ar.AsyncState as UdpClient;
         IPEndPoint source = new IPEndPoint(0, 0);
         byte[] message = socket.EndReceive(ar, ref source);
-        string returnData = Encoding.ASCII.GetString(message);
-        // UnityMainThreadDispatcher.Instance().Enqueue(() => Debug.Log("recieved data"));
-        UnityMainThreadDispatcher.Instance().Enqueue(() => Debug.Log(returnData));
-        // Debug.Log("recieved data");
-        // recieveData = true;
+        string returnData = JsonHelper.FixJson(Encoding.ASCII.GetString(message));
+        // UnityMainThreadDispatcher.Instance().Enqueue(() => Debug.Log(returnData));
+        NetworkPlayerData[] data = JsonHelper.FromJson<NetworkPlayerData>(returnData);
+        UnityMainThreadDispatcher.Instance().Enqueue(() => UpdatePlayerBladePosition(data));
         socket.BeginReceive(new AsyncCallback(OnReceived), socket);
-        // Debug.Log(ar.ToString());
     }
 
-    void Update()
+    private void UpdatePlayerBladePosition(NetworkPlayerData[] networkPlayerDatas)
     {
-
-        // if (recieveData)
-        // {
-        //     Debug.Log("recieved data");
-        // }
-        // byte[] data = Encoding.ASCII.GetBytes("request data from server");
-        // _udpClient.Send(data, data.Length);
+        int index = 0;
+        foreach (var data in networkPlayerDatas)
+        {
+            Vector2 leftHandScreenPos = new Vector2(data.LeftHandNormalPosX, data.LeftHandNormalPosY);
+            Vector2 rightHandScreenPos = new Vector2(data.RightHandNormalPosX, data.RightHandNormalPosY);
+            // Vector3 playerBodyPos = new Vector3(data.PlayerBodyPositionX, data.PlayerBodyPositionY, data.PlayerBodyPositionZ);
+            _networkPlayers[index].UpdateBladePosition(leftHandScreenPos, rightHandScreenPos);
+            index++;
+        }
     }
 }

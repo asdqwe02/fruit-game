@@ -293,7 +293,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &137643101
 Transform:
   m_ObjectHideFlags: 0
@@ -350,6 +350,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 192
   userID: 0
+  IsNetworkBlade: 1
 --- !u!1 &200271834
 GameObject:
   m_ObjectHideFlags: 0
@@ -366,7 +367,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &200271835
 Transform:
   m_ObjectHideFlags: 0
@@ -892,7 +893,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &372472897
 Transform:
   m_ObjectHideFlags: 0
@@ -949,6 +950,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 192
   userID: 0
+  IsNetworkBlade: 1
 --- !u!1 &401492567
 GameObject:
   m_ObjectHideFlags: 0
@@ -1406,6 +1408,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 689687961}
+  - component: {fileID: 689687962}
   m_Layer: 0
   m_Name: Network Player 1 Blades
   m_TagString: Untagged
@@ -1421,14 +1424,29 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 689687960}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 21.787308, y: -20.436382, z: 10.629386}
+  m_LocalPosition: {x: 16.030777, y: -6.5442877, z: -48.28902}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1300442422}
   - {fileID: 2104690510}
-  m_Father: {fileID: 1695836631}
+  m_Father: {fileID: 1161250258}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &689687962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 689687960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e6a4a8cce8a4b96adf028b327429798, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _blades:
+  - {fileID: 1300442424}
+  - {fileID: 2104690512}
 --- !u!1 &692066512
 GameObject:
   m_ObjectHideFlags: 0
@@ -1741,13 +1759,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 761999189}
+  - component: {fileID: 761999190}
   m_Layer: 0
   m_Name: 'Network Player 2 Blades '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &761999189
 Transform:
   m_ObjectHideFlags: 0
@@ -1756,14 +1775,29 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 761999188}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 21.787308, y: -20.436382, z: 10.629386}
+  m_LocalPosition: {x: 16.030777, y: -6.5442877, z: -48.28902}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 372472897}
   - {fileID: 137643101}
-  m_Father: {fileID: 1695836631}
+  m_Father: {fileID: 1161250258}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &761999190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 761999188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e6a4a8cce8a4b96adf028b327429798, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _blades:
+  - {fileID: 372472899}
+  - {fileID: 137643103}
 --- !u!1 &835024512
 GameObject:
   m_ObjectHideFlags: 0
@@ -1822,6 +1856,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 192
   userID: 0
+  IsNetworkBlade: 0
 --- !u!54 &835024516
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2114,6 +2149,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 192
   userID: 0
+  IsNetworkBlade: 0
 --- !u!4 &928373368
 Transform:
   m_ObjectHideFlags: 0
@@ -2315,6 +2351,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 192
   userID: 0
+  IsNetworkBlade: 0
 --- !u!1 &979363110
 GameObject:
   m_ObjectHideFlags: 0
@@ -2331,7 +2368,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &979363111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7645,6 +7682,56 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!1 &1161250256
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1161250258}
+  - component: {fileID: 1161250257}
+  m_Layer: 0
+  m_Name: NetworkPlayerController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1161250257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1161250256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6714328966ed0774b920a5c078b98864, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ListenPort: 11000
+  IPAddress: 192.168.80.222
+  _networkPlayers:
+  - {fileID: 689687962}
+  - {fileID: 761999190}
+--- !u!4 &1161250258
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1161250256}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -16.030777, y: 6.5442877, z: 49.28902}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 689687961}
+  - {fileID: 761999189}
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1252010567
 GameObject:
   m_ObjectHideFlags: 0
@@ -7737,7 +7824,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1300442422
 Transform:
   m_ObjectHideFlags: 0
@@ -7794,6 +7881,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 192
   userID: 0
+  IsNetworkBlade: 1
 --- !u!1 &1348138550
 GameObject:
   m_ObjectHideFlags: 0
@@ -17901,38 +17989,6 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
---- !u!1 &1695836630
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1695836631}
-  m_Layer: 0
-  m_Name: Network Players
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1695836631
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1695836630}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -21.787308, y: 20.436382, z: -9.629386}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 689687961}
-  - {fileID: 761999189}
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1716576168
 GameObject:
   m_ObjectHideFlags: 0
@@ -18007,6 +18063,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 192
   userID: 0
+  IsNetworkBlade: 0
 --- !u!1 &1744158370
 GameObject:
   m_ObjectHideFlags: 0
@@ -18242,6 +18299,49 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1812119443}
   m_CullTransparentMesh: 1
+--- !u!1 &1847156864
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1847156866}
+  - component: {fileID: 1847156865}
+  m_Layer: 0
+  m_Name: Dispatcher
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1847156865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1847156864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c1599ac1d29d0642b91ca1b613a75ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1847156866
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1847156864}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -25.018621, y: 6.3404694, z: 54.014885}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1865947123
 GameObject:
   m_ObjectHideFlags: 0
@@ -18684,7 +18784,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2104690510
 Transform:
   m_ObjectHideFlags: 0
@@ -18741,6 +18841,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 192
   userID: 0
+  IsNetworkBlade: 1
 --- !u!1 &2144719827
 GameObject:
   m_ObjectHideFlags: 0

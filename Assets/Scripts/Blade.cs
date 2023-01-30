@@ -33,6 +33,7 @@ public class Blade : MonoBehaviour
     [SerializeField] private LayerMask _hitLayerMask;
     public Int64 userID;
     private Player _player;
+    public bool IsNetworkBlade = false;
 
     private void Awake()
     {
@@ -55,29 +56,34 @@ public class Blade : MonoBehaviour
 
     private void Update()
     {
-        Int64 userID = KinectHandPositionManager.Instance.GetUserIDBySide(_player.playerSide);
-        if (IsRightHand)
+        if (!IsNetworkBlade)
         {
-            screenNormalPos = KinectHandPositionManager.Instance.GetRightHandScreenPos(userID);
-        }
-        else
-        {
-            screenNormalPos = KinectHandPositionManager.Instance.GetLeftHandScreenPos(userID);
+            Int64 userID = KinectHandPositionManager.Instance.GetUserIDBySide(_player.playerSide);
+            if (IsRightHand)
+            {
+                screenNormalPos = KinectHandPositionManager.Instance.GetRightHandScreenPos(userID);
+            }
+            else
+            {
+                screenNormalPos = KinectHandPositionManager.Instance.GetLeftHandScreenPos(userID);
+            }
+
+            if (_player.playerSide == Player.PlayerSide.RIGHT)
+            {
+                screenNormalPos = new Vector3(screenNormalPos.x / 2 + 0.5f, screenNormalPos.y, screenNormalPos.z);
+            }
+            else
+            {
+                screenNormalPos = new Vector3(screenNormalPos.x / 2, screenNormalPos.y, screenNormalPos.z);
+            }
+
+            _bladePos.x = _startPos.x + screenNormalPos.x * _boundary.x;
+            _bladePos.y = _startPos.y + screenNormalPos.y * _boundary.y;
+            // screenPixelPos.z = 0;
         }
 
-        if (_player.playerSide == Player.PlayerSide.RIGHT)
-        {
-            screenNormalPos = new Vector3(screenNormalPos.x / 2 + 0.5f, screenNormalPos.y, screenNormalPos.z);
-        }
-        else
-        {
-            screenNormalPos = new Vector3(screenNormalPos.x / 2, screenNormalPos.y, screenNormalPos.z);
-        }
-
-        // screenPixelPos.z = 0;
-        _bladePos.x = _startPos.x + screenNormalPos.x * _boundary.x;
-        _bladePos.y = _startPos.y + screenNormalPos.y * _boundary.y;
-
+        // _bladePos.x = _startPos.x + screenNormalPos.x * _boundary.x;
+        // _bladePos.y = _startPos.y + screenNormalPos.y * _boundary.y;
 
         // if (Input.GetMouseButtonDown(0))
         // {
@@ -164,5 +170,11 @@ public class Blade : MonoBehaviour
 
         // not found
         return null;
+    }
+
+    public void SetBladePos(Vector2 pos)
+    {
+        _bladePos.x = _startPos.x + pos.x * _boundary.x;
+        _bladePos.y = _startPos.y + pos.y * _boundary.y;
     }
 }
