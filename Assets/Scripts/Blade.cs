@@ -53,16 +53,6 @@ public class Blade : MonoBehaviour
         StartSlice();
     }
 
-    private void OnEnable()
-    {
-        StopSlice();
-    }
-
-    private void OnDisable()
-    {
-        StopSlice();
-    }
-
     private void Update()
     {
         Int64 userID = KinectHandPositionManager.Instance.GetUserIDBySide(_player.playerSide);

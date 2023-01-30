@@ -12942,7 +12942,9 @@ MonoBehaviour:
   _blades:
   - {fileID: 928373367}
   - {fileID: 835024514}
-  _players: []
+  _players:
+  - {fileID: 200271836}
+  - {fileID: 979363111}
   spawner: {fileID: 1865947125}
   _countDownTime: 90
   _countDownText: {fileID: 1812119445}
@@ -12952,7 +12954,7 @@ MonoBehaviour:
   _flowerParticle: {fileID: 1456812994}
   IsPlaying: 0
   _startFruit: {fileID: 130782219}
-  StartFruitCount: 0
+  BombExplode: 0
   configFileName: config.json
   _playerDetectionTreshHold: 5
 --- !u!1 &1456812992

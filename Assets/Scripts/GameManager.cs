@@ -31,6 +31,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject _startFruit;
     private int _startFruitCount;
 
+    [HideInInspector]
+    public bool BombExplode;
+
     public int StartFruitCount
     {
         get { return _startFruitCount; }
@@ -48,7 +51,7 @@ public class GameManager : MonoBehaviour
     private int _inactiveBlades = 0;
     [SerializeField] private string configFileName;
     [SerializeField] private float _playerDetectionTreshHold = 5f;
-    [SerializeField] private float _playerDetectionCountDown;
+    private float _playerDetectionCountDown;
     private string kinectManagerConfig;
 
     private void Awake()
@@ -103,11 +106,6 @@ public class GameManager : MonoBehaviour
         _instructionScreen.SetActive(false);
         ClearScene();
         _flowerParticle.gameObject.SetActive(false);
-
-        foreach (var player in _players)
-        {
-            player.EnableBlades();
-        }
         // foreach (var blade in _blades)
         // {
         //     blade.enabled = true;
@@ -138,6 +136,11 @@ public class GameManager : MonoBehaviour
         {
             Destroy(bomb.gameObject);
         }
+
+        foreach (var player in _players)
+        {
+            player.EnableBlades();
+        }
     }
 
     public void IncreaseScore(int points)
@@ -150,7 +153,8 @@ public class GameManager : MonoBehaviour
     {
         foreach (var player in _players)
         {
-            player.EnableBlades();
+            Debug.Log("disabled blade");
+            player.DisableBlades();
         }
 
         // foreach (var blade in _blades)
@@ -309,14 +313,6 @@ public class GameManager : MonoBehaviour
         _startFruit.SetActive(true);
         _flowerParticle.gameObject.SetActive(true);
         ClearScene();
-    }
-
-    private void OnInactiveBlade()
-    {
-        if (_inactiveBlades >= _players.Count * 2)
-        {
-            EndGame();
-        }
     }
 
     void OnUserIDUpdate(Int64 userID, bool remove)
