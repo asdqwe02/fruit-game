@@ -345,7 +345,6 @@ MonoBehaviour:
   rightHandInteraction: 1
   _boundary: {x: 0, y: 0}
   IsRightHand: 1
-  IsPlayerTwo: 0
   _hitLayerMask:
     serializedVersion: 2
     m_Bits: 192
@@ -840,8 +839,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 1, g: 0.65289426, b: 0, a: 1}
+      key1: {r: 1, g: 0.96657693, b: 0, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -945,7 +944,6 @@ MonoBehaviour:
   rightHandInteraction: 1
   _boundary: {x: 0, y: 0}
   IsRightHand: 0
-  IsPlayerTwo: 0
   _hitLayerMask:
     serializedVersion: 2
     m_Bits: 192
@@ -1851,7 +1849,6 @@ MonoBehaviour:
   rightHandInteraction: 1
   _boundary: {x: 0, y: 0}
   IsRightHand: 1
-  IsPlayerTwo: 0
   _hitLayerMask:
     serializedVersion: 2
     m_Bits: 192
@@ -2070,8 +2067,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 0.06203556, g: 0, b: 1, a: 1}
+      key1: {r: 0, g: 0.66026163, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -2144,7 +2141,6 @@ MonoBehaviour:
   rightHandInteraction: 1
   _boundary: {x: 0, y: 0}
   IsRightHand: 0
-  IsPlayerTwo: 0
   _hitLayerMask:
     serializedVersion: 2
     m_Bits: 192
@@ -2346,7 +2342,6 @@ MonoBehaviour:
   rightHandInteraction: 1
   _boundary: {x: 0, y: 0}
   IsRightHand: 1
-  IsPlayerTwo: 0
   _hitLayerMask:
     serializedVersion: 2
     m_Bits: 192
@@ -7646,8 +7641,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 0.06203556, g: 0, b: 1, a: 1}
+      key1: {r: 0, g: 0.66026163, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -7712,7 +7707,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ListenPort: 11000
-  IPAddress: 192.168.80.222
+  IPAddress: 127.0.0.1
   _networkPlayers:
   - {fileID: 689687962}
   - {fileID: 761999190}
@@ -7876,7 +7871,6 @@ MonoBehaviour:
   rightHandInteraction: 1
   _boundary: {x: 0, y: 0}
   IsRightHand: 0
-  IsPlayerTwo: 0
   _hitLayerMask:
     serializedVersion: 2
     m_Bits: 192
@@ -17953,8 +17947,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 1, g: 0.65289426, b: 0, a: 1}
+      key1: {r: 1, g: 0.96657693, b: 0, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -18058,7 +18052,6 @@ MonoBehaviour:
   rightHandInteraction: 1
   _boundary: {x: 0, y: 0}
   IsRightHand: 0
-  IsPlayerTwo: 0
   _hitLayerMask:
     serializedVersion: 2
     m_Bits: 192
@@ -18836,7 +18829,6 @@ MonoBehaviour:
   rightHandInteraction: 1
   _boundary: {x: 0, y: 0}
   IsRightHand: 1
-  IsPlayerTwo: 0
   _hitLayerMask:
     serializedVersion: 2
     m_Bits: 192

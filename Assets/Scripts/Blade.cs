@@ -29,7 +29,7 @@ public class Blade : MonoBehaviour
     private Vector3 _startPos;
     private bool slicing;
     public bool IsRightHand;
-    public bool IsPlayerTwo;
+    // public bool IsPlayerTwo;
     [SerializeField] private LayerMask _hitLayerMask;
     public Int64 userID;
     private Player _player;

@@ -23,6 +23,11 @@ public class NetworkPlayerController : MonoBehaviour
     // [SerializeField] private List<Blade> _blades;
     [SerializeField] private List<NetworkPlayer> _networkPlayers;
 
+    private void Awake()
+    {
+        IPAddress = GetLocalIPAddress();
+    }
+
     void Start()
     {
         // recieveBuffer = new byte[size];
@@ -61,5 +66,17 @@ public class NetworkPlayerController : MonoBehaviour
             _networkPlayers[index].UpdateBladePosition(leftHandScreenPos, rightHandScreenPos);
             index++;
         }
+    }
+    public string GetLocalIPAddress()
+    {
+        var host = Dns.GetHostEntry(Dns.GetHostName());
+        foreach (var ip in host.AddressList)
+        {
+            if (ip.AddressFamily == AddressFamily.InterNetwork)
+            {
+                return ip.ToString();
+            }
+        }
+        throw new Exception("No network adapters with an IPv4 address in the system!");
     }
 }
